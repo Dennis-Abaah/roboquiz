@@ -163,26 +163,6 @@
     </script>
 <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
-
-        /* 1. Locks the ad box permanently to the viewport header */
- .static-ad-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 5px;          /* Matches standard horizontal leaderboard height */
-  background-color: #fff; /* Keeps background solid so text underneath doesn't bleed through */
-  z-index: 9999;         /* Ensures the ad sits stacked on top of everything else */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Adds a modern, subtle separation line */
- }
-
-/* 2. Offset container to prevent the ad from covering your UI content */
- .main-app-content {
-  margin-top: 100px;     /* Forces your actual content to start below the 90px ad banner */
-  }
         
         .tactile-btn {
             border-bottom-width: 4px;
