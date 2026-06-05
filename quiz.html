@@ -172,7 +172,7 @@
 <!-- Top Navigation Header -->
 <header class="bg-surface border-b-4 border-outline-variant flex justify-between items-center w-full px-gutter py-3 sticky top-0 z-50">
 <div class="flex items-center gap-4">
-<button class="flex items-center justify-center w-10 h-10 rounded-xl hover:bg-surface-container-high transition-colors" onclick="window.location.href='home.html'">
+<button class="flex items-center justify-center w-10 h-10 rounded-xl hover:bg-surface-container-high transition-colors" onclick="window.location.href='index.html'">
 <span class="material-symbols-outlined text-on-surface-variant">close</span>
 </button>
 <span class="font-black text-primary text-headline-lg-mobile md:text-headline-lg tracking-tight">RoboPulse</span>
@@ -292,7 +292,7 @@
     quizId = parseInt(params.get('id'));
     if (!quizId) {
       alert('No quiz selected.');
-      window.location.href = 'home.html';
+      window.location.href = 'index.html';
       return;
     }
 
@@ -605,7 +605,7 @@
     checkBtn.dataset.mode = 'home';
     checkBtn.addEventListener('click', () => {
       if (checkBtn.dataset.mode === 'home') {
-        window.location.href = 'home.html';
+        window.location.href = 'index.html';
       }
     }, { once: true });
   }

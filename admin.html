@@ -141,7 +141,7 @@
             <span class="font-display-lg font-black text-primary">RoboQuiz Admin</span>
         </div>
         <div class="flex items-center gap-4">
-            <button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2" onclick="window.location.href='home.html'">
+            <button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2" onclick="window.location.href='index.html'">
                 <span class="material-symbols-outlined">exit_to_app</span>
                 <span class="font-label-bold hidden md:inline">Back to App</span>
             </button>
@@ -261,7 +261,7 @@
             }
             if (session.user.email !== ADMIN_EMAIL) {
                 alert('Access denied. Only the administrator can access this page.');
-                window.location.href = 'home.html';
+                window.location.href = 'index.html';
                 return;
             }
         })();
