@@ -1,4 +1,4 @@
-const apiKey = "";
+const apiKey = "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";
 
 async function testGroq() {
     try {
