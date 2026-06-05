@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RoboQuiz - Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary": "#2b6c00",
+                      "outline": "#6e7881",
+                      "surface-dim": "#dbd9d9",
+                      "on-primary-fixed-variant": "#004c6e",
+                      "surface-container": "#efeded",
+                      "surface-tint": "#006590",
+                      "secondary-fixed-dim": "#f4bf00",
+                      "outline-variant": "#bdc8d2",
+                      "surface-container-lowest": "#ffffff",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed": "#87fe45",
+                      "on-secondary-container": "#6e5400",
+                      "on-background": "#1b1c1c",
+                      "on-primary-fixed": "#001e2e",
+                      "on-tertiary-container": "#194500",
+                      "inverse-on-surface": "#f2f0f0",
+                      "tertiary-fixed-dim": "#6be026",
+                      "secondary": "#755b00",
+                      "surface-container-low": "#f5f3f3",
+                      "on-secondary-fixed-variant": "#594400",
+                      "on-surface-variant": "#3e4850",
+                      "surface-variant": "#e4e2e2",
+                      "on-error-container": "#93000a",
+                      "primary-fixed-dim": "#88ceff",
+                      "surface": "#fbf9f8",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-fixed-variant": "#1f5100",
+                      "on-primary-container": "#00405d",
+                      "on-tertiary-fixed": "#082100",
+                      "error-container": "#ffdad6",
+                      "secondary-container": "#fec700",
+                      "surface-container-highest": "#e4e2e2",
+                      "inverse-primary": "#88ceff",
+                      "surface-container-high": "#eae8e7",
+                      "surface-bright": "#fbf9f8",
+                      "on-tertiary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "on-surface": "#1b1c1c",
+                      "secondary-fixed": "#ffdf92",
+                      "primary-fixed": "#c8e6ff",
+                      "tertiary-container": "#51bd00",
+                      "background": "#fbf9f8",
+                      "primary-container": "#1cb0f6",
+                      "inverse-surface": "#303030",
+                      "on-secondary-fixed": "#241a00",
+                      "on-primary": "#ffffff",
+                      "primary": "#006590"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px",
+                      "2xl": "1rem",
+                      "3xl": "1.5rem"
+              },
+              "spacing": {
+                      "lg": "32px",
+                      "container-max": "1200px",
+                      "base": "8px",
+                      "md": "24px",
+                      "xl": "48px",
+                      "gutter": "16px",
+                      "sm": "12px",
+                      "xs": "4px"
+              },
+              "fontFamily": {
+                      "title-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-lg-mobile": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "display-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-sm": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "label-bold": [
+                              "Plus Jakarta Sans"
+                      ]
+              },
+              "fontSize": {
+                      "title-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "display-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-bold": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "fontWeight": "800"
+                              }
+                      ]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        .tactile-btn {
+            border-bottom-width: 4px;
+            transition: all 0.15s ease;
+        }
+        .tactile-btn:active {
+            transform: translateY(4px);
+            border-bottom-width: 0px;
+            margin-bottom: 4px;
+        }
+
+        .card-shadow {
+            box-shadow: 0px 8px 24px rgba(27, 28, 28, 0.08);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #e0f2fe 0%, #f3e8ff 100%);
+        }
+
+        .curved-bottom {
+            clip-path: ellipse(150% 100% at 50% 0%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen pb-[100px] md:pb-0">
+<!-- TopAppBar (Hidden on Mobile) -->
+<nav class="hidden md:flex justify-between items-center w-full px-lg py-sm max-w-container-max mx-auto bg-surface dark:bg-on-background top-0 z-50 sticky border-b-4 border-outline-variant dark:border-outline">
+<div class="font-display-lg text-display-lg font-black text-primary dark:text-primary-fixed-dim">
+            RoboQuiz
+        </div>
+<ul class="flex items-center gap-md">
+<li>
+<a class="flex flex-col items-center gap-1 text-primary dark:text-primary-fixed-dim border-b-4 border-primary dark:border-primary-fixed-dim pb-2 translate-y-0.5 transition-transform hover:bg-surface-container dark:hover:bg-inverse-surface rounded-lg px-2" href="#">
+<span class="font-label-bold text-label-bold uppercase tracking-wider">Home</span>
+</a>
+</li>
+<li>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container dark:hover:bg-inverse-surface rounded-lg px-2 py-2" href="#">
+<span class="font-label-bold text-label-bold uppercase tracking-wider">Leaderboard</span>
+</a>
+</li>
+<li>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container dark:hover:bg-inverse-surface rounded-lg px-2 py-2" href="#">
+<span class="font-label-bold text-label-bold uppercase tracking-wider">Profile</span>
+</a>
+</li>
+</ul>
+<div class="flex items-center gap-sm">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<img alt="Student avatar" class="w-10 h-10 rounded-full border-2 border-primary object-cover ml-2" data-alt="A close up, vibrant portrait of a young student smiling enthusiastically. The lighting is bright and cheerful, matching the energetic style of an educational app. The student has short, neat hair and is wearing a colorful casual shirt, set against a soft, plain background to emphasize approachability and learning readiness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfYaL0h2V968zueRaRDhK9veqazJ7aYEdL2v1c_5zCOKPIExRZNDbeAvGjN9Syl0h4KeBToX6CuNInB7Ebz_OjsC3h99CTqTS4kTdij44Yp8YlR0XQFvBcP4erx4sBTYQ19VvV5i2vTUom7LU5ZW-RnEzdVk11oUV-mQEAzIzyNUhyVdDTxEKBj-ubvpF8tRImM0Lw9AiRZsoa2OUOUiOWPTkO0XRztaErOY7H8co4tJBdvps_VnLtjiIvus0oKmW1sfTfQgFBFwQ"/>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="max-w-container-max mx-auto md:px-lg">
+<!-- Hero Section -->
+<div class="relative pt-lg px-gutter pb-xl md:rounded-b-3xl md:mt-4 hero-gradient overflow-hidden">
+<div class="absolute bottom-0 left-0 w-full h-16 bg-background curved-bottom md:hidden z-0"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-md max-w-4xl mx-auto">
+<div class="flex items-center gap-md w-full md:w-auto">
+<!-- Student Illustration Placeholder -->
+<img alt="Student Illustration" class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-surface-container-lowest shadow-lg object-cover" data-alt="A bright, colorful 2D vector illustration of a happy young student waving enthusiastically. The character is designed in a modern, friendly style with thick outlines and vibrant colors, typical of an engaging learning platform. They wear a backpack and a simple collared shirt, set against a transparent or very light background to stand out clearly as a welcoming mascot." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIRV1Hwdhs_kOfQxsi5R4z0CbSUIEHKLEOIR7hKE6t9MVaX2kSWLETVk2kVB61E4EQp5eHmRi2OziBIajB_x4v1FVj_sBadTpwXkUsKGCJIZOZ1lFin8t_bZ00DSVYCxKQj0ppOdaoW1MTT3hJ0AKsRrhTv1XONreegLjRagir_zOmok30MwBKOgxzY7vbSwiqf74hiIoR_xQaE0yDX42GyA2j-aFbil39O1M7FGWq72k7b_IRtFv1j4cXx6s8F0eYcTs2YcE_qyE"/>
+<div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Hi, Alex!</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-1">Welcome back to class!</p>
+</div>
+</div>
+<!-- Points Card -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 md:p-6 card-shadow flex items-center justify-between gap-lg w-full md:w-auto border-2 border-surface-variant">
+<div>
+<p class="font-body-sm text-body-sm text-on-surface-variant font-bold uppercase tracking-wider">Your Points</p>
+<p class="font-display-lg text-display-lg text-primary mt-1">50</p>
+</div>
+<div class="bg-secondary-container text-on-secondary-container p-3 rounded-xl">
+<span class="material-symbols-outlined text-3xl" data-icon="emoji_events" data-weight="fill">emoji_events</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Quiz Grid Section -->
+<div class="px-gutter md:px-0 py-lg mt-sm md:mt-lg max-w-4xl mx-auto">
+<h2 class="font-title-md text-title-md text-on-surface mb-md px-2 border-l-4 border-primary">Today's Missions</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-md md:gap-lg">
+<!-- Card 1 (Blue) -->
+<div class="bg-[#1cb0f6] rounded-3xl p-1 pb-4 flex flex-col h-full relative overflow-hidden tactile-btn border-primary">
+<!-- Completion Check -->
+<div class="absolute top-3 right-3 bg-tertiary-container text-on-tertiary-container rounded-full p-1 shadow-sm z-10">
+<span class="material-symbols-outlined text-sm font-bold" data-icon="check">check</span>
+</div>
+<!-- Graphic Area -->
+<div class="h-32 flex items-center justify-center relative">
+<span class="material-symbols-outlined text-6xl text-white opacity-80" data-icon="settings">settings</span>
+</div>
+<!-- Content Area -->
+<div class="bg-surface-container-lowest rounded-2xl p-md flex-1 flex flex-col justify-between mt-auto">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2">EV3: Gear Systems</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Learn about EV3 gear systems, ratios, and mechanical advantage functions.</p>
+</div>
+<button class="mt-md w-full bg-surface-container-lowest text-on-surface font-label-bold text-label-bold py-3 rounded-xl border-2 border-surface-variant tactile-btn border-b-surface-dim hover:bg-surface-container transition-colors uppercase tracking-widest">
+                            Start Quiz
+                        </button>
+</div>
+</div>
+<!-- Card 2 (Pink/Red) -->
+<div class="bg-[#ff6b8b] rounded-3xl p-1 pb-4 flex flex-col h-full relative overflow-hidden tactile-btn border-[#d6335a]">
+<!-- Completion Check -->
+<div class="absolute top-3 right-3 bg-tertiary-container text-on-tertiary-container rounded-full p-1 shadow-sm z-10">
+<span class="material-symbols-outlined text-sm font-bold" data-icon="check">check</span>
+</div>
+<!-- Graphic Area -->
+<div class="h-32 flex items-center justify-center relative">
+<span class="material-symbols-outlined text-6xl text-white opacity-80" data-icon="code">code</span>
+</div>
+<!-- Content Area -->
+<div class="bg-surface-container-lowest rounded-2xl p-md flex-1 flex flex-col justify-between mt-auto">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2">Spike: Python Intro</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Start learning Python basics specifically for Spike Prime robotics programming.</p>
+</div>
+<button class="mt-md w-full bg-surface-container-lowest text-on-surface font-label-bold text-label-bold py-3 rounded-xl border-2 border-surface-variant tactile-btn border-b-surface-dim hover:bg-surface-container transition-colors uppercase tracking-widest">
+                            Start Quiz
+                        </button>
+</div>
+</div>
+<!-- Card 3 (Yellow) -->
+<div class="bg-secondary-container rounded-3xl p-1 pb-4 flex flex-col h-full relative overflow-hidden tactile-btn border-[#d4a000]">
+<!-- Completion Check -->
+<div class="absolute top-3 right-3 bg-tertiary-container text-on-tertiary-container rounded-full p-1 shadow-sm z-10">
+<span class="material-symbols-outlined text-sm font-bold" data-icon="check">check</span>
+</div>
+<!-- Graphic Area -->
+<div class="h-32 flex items-center justify-center relative">
+<span class="material-symbols-outlined text-6xl text-on-secondary-container opacity-80" data-icon="terminal">terminal</span>
+</div>
+<!-- Content Area -->
+<div class="bg-surface-container-lowest rounded-2xl p-md flex-1 flex flex-col justify-between mt-auto">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2">Spike: Variables</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Learn how to store and use data in your Spike Prime Python scripts.</p>
+</div>
+<button class="mt-md w-full bg-surface-container-lowest text-on-surface font-label-bold text-label-bold py-3 rounded-xl border-2 border-surface-variant tactile-btn border-b-surface-dim hover:bg-surface-container transition-colors uppercase tracking-widest">
+                            Start Quiz
+                        </button>
+</div>
+</div>
+<!-- Card 4 (Blue Variant) -->
+<div class="bg-primary-container rounded-3xl p-1 pb-4 flex flex-col h-full relative overflow-hidden tactile-btn border-primary">
+<!-- Graphic Area -->
+<div class="h-32 flex items-center justify-center relative">
+<span class="material-symbols-outlined text-6xl text-on-primary-container opacity-80" data-icon="smart_toy">smart_toy</span>
+</div>
+<!-- Content Area -->
+<div class="bg-surface-container-lowest rounded-2xl p-md flex-1 flex flex-col justify-between mt-auto">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2">EV3: Core Systems</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Deep dive into the EV3 intelligent brick and motor control.</p>
+</div>
+<button class="mt-md w-full bg-surface-container-lowest text-on-surface font-label-bold text-label-bold py-3 rounded-xl border-2 border-surface-variant tactile-btn border-b-surface-dim hover:bg-surface-container transition-colors uppercase tracking-widest">
+                            Start Quiz
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-6 pb-6 pt-3 md:hidden bg-surface/80 dark:bg-on-background/80 backdrop-blur-xl border-t border-outline-variant/30 shadow-[0_-8px_32px_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center justify-center relative group" href="#">
+<div class="absolute -top-1 w-12 h-1 bg-primary rounded-full transition-all duration-300"></div>
+<span class="material-symbols-outlined text-2xl mb-1 text-primary transition-transform duration-300 group-active:scale-90" style="font-variation-settings: 'FILL' 1, 'wght' 300">home</span>
+<span class="font-label-bold text-[10px] uppercase tracking-widest text-primary">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant py-2 group" href="#">
+<span class="material-symbols-outlined text-2xl mb-1 transition-all duration-300 group-hover:text-primary group-active:scale-90" style="font-variation-settings: 'FILL' 0, 'wght' 300">leaderboard</span>
+<span class="font-label-bold text-[10px] uppercase tracking-widest">Leaderboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant py-2 group" href="#">
+<span class="material-symbols-outlined text-2xl mb-1 transition-all duration-300 group-hover:text-primary group-active:scale-90" style="font-variation-settings: 'FILL' 0, 'wght' 300">person</span>
+<span class="font-label-bold text-[10px] uppercase tracking-widest">Profile</span>
+</a>
+</nav>
+</body></html>

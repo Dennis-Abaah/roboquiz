@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>RoboQuiz - Admin Dashboard</title>
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#006590",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#c8e6ff",
+                        "on-primary-container": "#001e2e",
+                        "secondary": "#755b00",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#ffdf92",
+                        "on-secondary-container": "#241a00",
+                        "tertiary": "#2b6c00",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#87fe45",
+                        "on-tertiary-container": "#082100",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "background": "#fbf9f8",
+                        "on-background": "#1b1c1c",
+                        "surface": "#fbf9f8",
+                        "on-surface": "#1b1c1c",
+                        "surface-variant": "#e4e2e2",
+                        "on-surface-variant": "#3e4850",
+                        "outline": "#6e7881",
+                        "outline-variant": "#bdc8d2",
+                        "surface-container-highest": "#e4e2e2",
+                        "surface-container-high": "#eae8e7",
+                        "surface-container": "#efeded",
+                        "surface-container-low": "#f5f3f3",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#fbf9f8",
+                    },
+                    fontFamily: {
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "title-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "label-bold": ["Plus Jakarta Sans"],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .input-squish {
+            border: 2px solid theme('colors.outline-variant');
+            transition: all 0.2s ease;
+        }
+        .input-squish:focus {
+            border-color: theme('colors.primary');
+            border-width: 3px;
+            outline: none;
+            padding-left: 11px;
+            padding-right: 11px;
+        }
+        .btn-primary {
+            background-color: theme('colors.primary');
+            color: theme('colors.on-primary');
+            border-bottom: 4px solid #004c6e;
+            transition: all 0.1s ease-in-out;
+        }
+        .btn-primary:active:not(:disabled) {
+            transform: translateY(2px);
+            border-bottom-width: 2px;
+            margin-top: 2px;
+        }
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            border-bottom-width: 4px;
+            transform: none;
+        }
+        .btn-secondary {
+            background-color: theme('colors.surface-container-lowest');
+            color: theme('colors.primary');
+            border: 2px solid theme('colors.outline-variant');
+            border-bottom: 4px solid theme('colors.outline-variant');
+            transition: all 0.1s ease-in-out;
+        }
+        .btn-secondary:active:not(:disabled) {
+            transform: translateY(2px);
+            border-bottom-width: 2px;
+            margin-top: 2px;
+        }
+        .card-ambient-shadow {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.7s ease-in-out infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        #notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            font-weight: bold;
+            display: none;
+        }
+        .notify-success { background-color: #87fe45; color: #082100; }
+        .notify-error { background-color: #ffdad6; color: #93000a; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-lg min-h-screen flex flex-col">
+    <!-- Notification Toast -->
+    <div id="notification"></div>
+
+    <!-- TopAppBar -->
+    <header class="bg-surface border-b-4 border-outline-variant flex justify-between items-center w-full px-4 md:px-8 py-3 sticky top-0 z-50">
+        <div class="flex items-center gap-4">
+            <span class="font-display-lg font-black text-primary">RoboQuiz Admin</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2" onclick="window.location.href='home.html'">
+                <span class="material-symbols-outlined">exit_to_app</span>
+                <span class="font-label-bold hidden md:inline">Back to App</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow w-full max-w-4xl mx-auto px-4 py-8 flex flex-col gap-8 pb-32">
+        <div class="text-center mb-4">
+            <h1 class="font-display-lg text-primary mb-2">AI Quiz Generator</h1>
+            <p class="text-on-surface-variant">Design and deploy new challenges instantly using Groq LLM.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Left: Quiz Metadata -->
+            <div class="bg-surface-container-lowest rounded-xl p-6 card-ambient-shadow border border-outline-variant flex flex-col gap-4">
+                <h3 class="font-title-md border-b-2 border-surface-container pb-2 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">info</span>
+                    Quiz Details
+                </h3>
+                
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-bold text-on-surface-variant text-sm">Category</label>
+                    <select id="category" class="input-squish rounded-lg px-3 py-2 bg-surface-bright">
+                        <option value="EV3">EV3</option>
+                        <option value="Spike">Spike</option>
+                        <option value="Whalesbot">Whalesbot</option>
+                    </select>
+                </div>
+                
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-bold text-on-surface-variant text-sm">Quiz Title</label>
+                    <input type="text" id="title" class="input-squish rounded-lg px-3 py-2 bg-surface-bright" placeholder="e.g. Advanced Motor Control" />
+                </div>
+                
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-bold text-on-surface-variant text-sm">Description (Optional)</label>
+                    <textarea id="description" class="input-squish rounded-lg px-3 py-2 bg-surface-bright resize-none" rows="2" placeholder="Brief description for the students..."></textarea>
+                </div>
+            </div>
+
+            <!-- Right: AI Prompt Engineering -->
+            <div class="bg-surface-container-lowest rounded-xl p-6 card-ambient-shadow border border-outline-variant flex flex-col gap-4">
+                <h3 class="font-title-md border-b-2 border-surface-container pb-2 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-tertiary">memory</span>
+                    AI Generation Suite
+                </h3>
+                
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-bold text-on-surface-variant text-sm">Core Objective / Context</label>
+                    <textarea id="ai-context" class="input-squish rounded-lg px-3 py-2 bg-surface-bright resize-none" rows="3" placeholder="e.g. Focus on gear ratios, speed vs torque, and specific EV3 hardware constraints..."></textarea>
+                </div>
+                
+                <div class="flex gap-4">
+                    <div class="flex flex-col gap-1 flex-1">
+                        <label class="font-label-bold text-on-surface-variant text-sm">Question Count</label>
+                        <input type="number" id="q-count" class="input-squish rounded-lg px-3 py-2 bg-surface-bright" value="5" min="1" max="20" />
+                    </div>
+                    <div class="flex flex-col gap-1 flex-1">
+                        <label class="font-label-bold text-on-surface-variant text-sm">Groq API Key</label>
+                        <input type="password" id="api-key" class="input-squish rounded-lg px-3 py-2 bg-surface-bright" value="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" />
+                    </div>
+                </div>
+                
+                <button id="generate-btn" class="btn-primary w-full py-3 rounded-lg font-title-md mt-2 flex items-center justify-center gap-2" onclick="generateQuiz()">
+                    <span class="material-symbols-outlined">auto_awesome</span>
+                    Generate Quiz via AI
+                </button>
+            </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div id="preview-section" class="hidden bg-surface-container-lowest rounded-xl p-6 card-ambient-shadow border border-outline-variant flex flex-col gap-6">
+            <div class="flex justify-between items-center border-b-2 border-surface-container pb-4">
+                <h3 class="font-title-md flex items-center gap-2">
+                    <span class="material-symbols-outlined text-secondary">visibility</span>
+                    Generated Preview
+                </h3>
+                <button id="save-btn" class="btn-tertiary bg-tertiary text-on-tertiary px-6 py-2 rounded-lg font-title-md border-b-4 border-on-tertiary-container active:translate-y-1 active:border-b-2 transition-all flex items-center gap-2" onclick="saveToDatabase()">
+                    <span class="material-symbols-outlined">cloud_upload</span>
+                    Save to Database
+                </button>
+            </div>
+            
+            <div id="questions-container" class="flex flex-col gap-6 max-h-[600px] overflow-y-auto pr-2">
+                <!-- Generated questions injected here -->
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ─── Supabase Init ───
+        const SUPABASE_URL = "https://clbphhpprujjpdopfgtq.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsYnBoaHBwcnVqanBkb3BmZ3RxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3OTQwMzgsImV4cCI6MjA5NTM3MDAzOH0.udmaLNyKJodWU7oIHaEbsXdqxZ1Rqz-7CwLai2_6ahU";
+        let _supabase = null;
+        try {
+            if (window.supabase) {
+                _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            }
+        } catch (err) {
+            console.error("Failed to initialize Supabase:", err);
+        }
+
+        let generatedQuestions = [];
+
+        function showNotification(msg, isError = false) {
+            const el = document.getElementById('notification');
+            el.textContent = msg;
+            el.className = isError ? 'notify-error' : 'notify-success';
+            el.style.display = 'block';
+            setTimeout(() => { el.style.display = 'none'; }, 4000);
+        }
+
+        // Auth Guard — Admin Only
+        const ADMIN_EMAIL = 'abaahdennis54@gmail.com';
+        (async function checkAuth() {
+            if (!_supabase) return;
+            const { data: { session } } = await _supabase.auth.getSession();
+            if (!session) {
+                window.location.href = 'login.html';
+                return;
+            }
+            if (session.user.email !== ADMIN_EMAIL) {
+                alert('Access denied. Only the administrator can access this page.');
+                window.location.href = 'home.html';
+                return;
+            }
+        })();
+
+        // ─── AI Generation (Groq) ───
+        async function generateQuiz() {
+            const btn = document.getElementById('generate-btn');
+            const category = document.getElementById('category').value;
+            const title = document.getElementById('title').value.trim();
+            const context = document.getElementById('ai-context').value.trim();
+            const count = document.getElementById('q-count').value;
+            const apiKey = document.getElementById('api-key').value.trim();
+
+            if (!title) return showNotification("Please enter a Quiz Title.", true);
+            if (!apiKey) return showNotification("Please provide a Groq API Key.", true);
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Generating...';
+            document.getElementById('preview-section').classList.add('hidden');
+
+            const systemPrompt = `You are an expert robotics educator creating a multiple-choice quiz for middle school students.
+You must output ONLY a valid JSON array of objects. No markdown formatting, no code blocks, no text outside the JSON array.
+Format required:
+[
+  {
+    "question": "...",
+    "A": "...",
+    "B": "...",
+    "C": "...",
+    "D": "...",
+    "correct": "A"
+  }
+]
+"correct" MUST be exactly one character: "A", "B", "C", or "D".`;
+
+            const userPrompt = `Create exactly ${count} questions for a robotics quiz.
+Category: ${category}
+Title: ${title}
+Context/Objective: ${context || 'General knowledge about ' + category + ' robotics systems.'}`;
+
+            try {
+                const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        model: "llama-3.3-70b-versatile",
+                        messages: [
+                            { role: "system", content: systemPrompt },
+                            { role: "user", content: userPrompt }
+                        ],
+                        temperature: 0.3
+                    })
+                });
+
+                if (!response.ok) {
+                    const errBody = await response.text();
+                    throw new Error(`Groq API Error: ${response.status} - ${errBody}`);
+                }
+                
+                const data = await response.json();
+                let content = data.choices[0].message.content.trim();
+                
+                // Safety cleanup in case LLM wrapped in markdown anyway
+                if (content.startsWith('```json')) content = content.substring(7);
+                if (content.startsWith('```')) content = content.substring(3);
+                if (content.endsWith('```')) content = content.substring(0, content.length - 3);
+                
+                generatedQuestions = JSON.parse(content.trim());
+                renderPreview();
+                showNotification("Generation successful!");
+
+            } catch (err) {
+                console.error(err);
+                showNotification(`Generation failed: ${err.message}`, true);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<span class="material-symbols-outlined">auto_awesome</span> Generate Quiz via AI';
+            }
+        }
+
+        // ─── Render Preview ───
+        function renderPreview() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+            
+            generatedQuestions.forEach((q, i) => {
+                const isA = q.correct === 'A' ? 'bg-tertiary-container text-on-tertiary-container font-bold border-2 border-tertiary' : 'bg-surface border border-outline-variant';
+                const isB = q.correct === 'B' ? 'bg-tertiary-container text-on-tertiary-container font-bold border-2 border-tertiary' : 'bg-surface border border-outline-variant';
+                const isC = q.correct === 'C' ? 'bg-tertiary-container text-on-tertiary-container font-bold border-2 border-tertiary' : 'bg-surface border border-outline-variant';
+                const isD = q.correct === 'D' ? 'bg-tertiary-container text-on-tertiary-container font-bold border-2 border-tertiary' : 'bg-surface border border-outline-variant';
+
+                const html = `
+                <div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant">
+                    <p class="font-title-md mb-3"><span class="text-primary mr-2">${i + 1}.</span>${q.question}</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <div class="p-2 rounded-md ${isA}"><span class="font-bold mr-2">A:</span>${q.A}</div>
+                        <div class="p-2 rounded-md ${isB}"><span class="font-bold mr-2">B:</span>${q.B}</div>
+                        <div class="p-2 rounded-md ${isC}"><span class="font-bold mr-2">C:</span>${q.C}</div>
+                        <div class="p-2 rounded-md ${isD}"><span class="font-bold mr-2">D:</span>${q.D}</div>
+                    </div>
+                </div>`;
+                container.innerHTML += html;
+            });
+
+            document.getElementById('preview-section').classList.remove('hidden');
+        }
+
+        // ─── Database Commits ───
+        async function saveToDatabase() {
+            if (!_supabase) return;
+            const btn = document.getElementById('save-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Saving...';
+
+            const category = document.getElementById('category').value;
+            const title = document.getElementById('title').value.trim();
+            const description = document.getElementById('description').value.trim();
+
+            try {
+                // 1. Insert Quiz
+                const { data: quizData, error: quizErr } = await _supabase
+                    .from('quizzes')
+                    .insert({ category, title, description })
+                    .select('id')
+                    .single();
+
+                if (quizErr) throw new Error(quizErr.message);
+
+                // 2. Map & Insert Questions
+                const questionsToInsert = generatedQuestions.map(q => ({
+                    quiz_id: quizData.id,
+                    question_text: q.question,
+                    option_a: q.A,
+                    option_b: q.B,
+                    option_c: q.C,
+                    option_d: q.D,
+                    correct_option: q.correct
+                }));
+
+                const { error: qErr } = await _supabase
+                    .from('questions')
+                    .insert(questionsToInsert);
+
+                if (qErr) throw new Error(qErr.message);
+
+                showNotification('Quiz saved to Database successfully!');
+                
+                // Reset UI
+                setTimeout(() => {
+                    document.getElementById('title').value = '';
+                    document.getElementById('description').value = '';
+                    document.getElementById('ai-context').value = '';
+                    document.getElementById('preview-section').classList.add('hidden');
+                    generatedQuestions = [];
+                }, 2000);
+
+            } catch (err) {
+                console.error(err);
+                showNotification(`Database Error: ${err.message}`, true);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<span class="material-symbols-outlined">cloud_upload</span> Save to Database';
+            }
+        }
+    </script>
+</body>
+</html>

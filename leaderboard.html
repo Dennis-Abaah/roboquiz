@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RoboQuiz - Leaderboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Supabase JS CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#2b6c00",
+                        "outline": "#6e7881",
+                        "surface-dim": "#dbd9d9",
+                        "on-primary-fixed-variant": "#004c6e",
+                        "surface-container": "#efeded",
+                        "surface-tint": "#006590",
+                        "secondary-fixed-dim": "#f4bf00",
+                        "outline-variant": "#bdc8d2",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#87fe45",
+                        "on-secondary-container": "#6e5400",
+                        "on-background": "#1b1c1c",
+                        "on-primary-fixed": "#001e2e",
+                        "on-tertiary-container": "#194500",
+                        "inverse-on-surface": "#f2f0f0",
+                        "tertiary-fixed-dim": "#6be026",
+                        "secondary": "#755b00",
+                        "surface-container-low": "#f5f3f3",
+                        "on-secondary-fixed-variant": "#594400",
+                        "on-surface-variant": "#3e4850",
+                        "surface-variant": "#e4e2e2",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#88ceff",
+                        "surface": "#fbf9f8",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#1f5100",
+                        "on-primary-container": "#00405d",
+                        "on-tertiary-fixed": "#082100",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#fec700",
+                        "surface-container-highest": "#e4e2e2",
+                        "inverse-primary": "#88ceff",
+                        "surface-container-high": "#eae8e7",
+                        "surface-bright": "#fbf9f8",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-surface": "#1b1c1c",
+                        "secondary-fixed": "#ffdf92",
+                        "primary-fixed": "#c8e6ff",
+                        "tertiary-container": "#51bd00",
+                        "background": "#fbf9f8",
+                        "primary-container": "#1cb0f6",
+                        "inverse-surface": "#303030",
+                        "on-secondary-fixed": "#241a00",
+                        "on-primary": "#ffffff",
+                        "primary": "#006590"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "32px",
+                        "container-max": "1200px",
+                        "base": "8px",
+                        "md": "24px",
+                        "xl": "48px",
+                        "gutter": "16px",
+                        "sm": "12px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-sm": ["Plus Jakarta Sans"],
+                        "label-bold": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "title-md": ["18px", {"lineHeight": "1.4", "fontWeight": "700"}],
+                        "headline-lg": ["24px", {"lineHeight": "1.3", "fontWeight": "800"}],
+                        "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["20px", {"lineHeight": "1.3", "fontWeight": "800"}],
+                        "display-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "500"}],
+                        "label-bold": ["14px", {"lineHeight": "1.0", "fontWeight": "800"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .tactile-button {
+            border-bottom-width: 4px;
+            border-bottom-color: rgba(0,0,0,0.2);
+        }
+        .tactile-button:active {
+            transform: translateY(2px);
+            border-bottom-width: 2px;
+            margin-top: 2px;
+        }
+        .ambient-shadow {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+        /* Pulse animation for real-time updates */
+        @keyframes pulse-update {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        .pulse { animation: pulse-update 0.4s ease; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-lg min-h-screen flex flex-col pb-24 md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-on-background hidden md:flex justify-between items-center w-full px-lg py-sm max-w-container-max mx-auto docked full-width top-0 border-b-4 border-outline-variant dark:border-outline flat no shadows z-40 sticky top-0">
+<div class="flex items-center gap-4">
+<h1 class="font-display-lg text-display-lg font-black text-primary dark:text-primary-fixed-dim">RoboQuiz</h1>
+</div>
+<nav class="flex items-center gap-8 h-full">
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container dark:hover:bg-inverse-surface rounded-lg px-4 py-2 font-headline-lg text-headline-lg h-full flex items-center" href="home.html">
+                Home
+            </a>
+<a class="text-primary dark:text-primary-fixed-dim border-b-4 border-primary dark:border-primary-fixed-dim pb-2 font-headline-lg text-headline-lg h-full flex items-center pt-2 Active: translate-y-0.5 transition-transform" href="leaderboard.html">
+                Leaderboard
+            </a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container dark:hover:bg-inverse-surface rounded-lg px-4 py-2 font-headline-lg text-headline-lg h-full flex items-center" href="profile.html">
+                Profile
+            </a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<img alt="Student avatar" class="w-10 h-10 rounded-full border-2 border-primary" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCN64IYFk_S1Rb1lBMncD0bNdc0aTMqWQW1Ql6YVQrEHRq6wdRDp92rTAqFuUUn5mStNpO9GnJKeu0RRHR5Lq0AJwZZ2OsrQYtcI7ZMd5fiWGUm3v2bgN3NtFdasLBVkHo7TeVFhN7U-6eH6JbewwiVXhF4-wZtkjSZSak-fHZY-3mV06mTMJAX1siGhKZcpUGLde3HEt3RJLwG589PfMdSC-fI5FT4otQ5jhr-3PZDhMG5uzR6Q7tpZotzQdNqpfY1q8RkJf01538"/>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-gutter md:px-lg py-lg flex flex-col gap-lg relative">
+<div class="text-center mb-md">
+<h2 class="font-display-lg text-display-lg text-on-background mb-xs">Global Leaderboard</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">See who's currently mastering the bots!</p>
+<p class="font-body-sm text-body-sm text-primary mt-2" id="live-indicator">
+  <span class="inline-block w-2 h-2 rounded-full bg-tertiary-container mr-1 animate-pulse"></span>
+  Live updates active
+</p>
+</div>
+<!-- Podium Section (Top 3) -->
+<section class="flex flex-col md:flex-row justify-center items-end gap-md md:gap-lg mb-xl mt-xl px-4 md:px-0" id="podium-section">
+<!-- Will be dynamically populated -->
+</section>
+<!-- List Section -->
+<section class="bg-surface-container-lowest rounded-xl p-4 md:p-md ambient-shadow border-2 border-surface-variant">
+<div class="flex flex-col gap-sm" id="list-section">
+<!-- Header row (Desktop only) -->
+<div class="hidden md:flex items-center justify-between px-4 py-2 border-b-2 border-surface-variant text-on-surface-variant font-label-bold text-label-bold mb-2">
+<div class="w-16 text-center">Rank</div>
+<div class="flex-grow pl-4">Student</div>
+<div class="w-1/3">School</div>
+<div class="w-24 text-right">Points</div>
+</div>
+<!-- List Items will be dynamically populated -->
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 md:hidden bg-white/80 dark:bg-on-background/80 backdrop-blur-xl border-t border-outline-variant/30 px-6 pb-6 pt-3 flex justify-around items-center shadow-[0_-8px_30px_rgb(0,0,0,0.04)]">
+<a class="flex flex-col items-center justify-center gap-1 text-outline dark:text-outline-variant transition-all duration-300 hover:text-primary" href="home.html">
+<span class="material-symbols-outlined text-[24px] font-light" style="font-variation-settings: 'wght' 300">home</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Home</span>
+</a>
+<a class="relative flex flex-col items-center justify-center gap-1 text-primary dark:text-primary-fixed-dim transition-all duration-300" href="leaderboard.html">
+<div class="absolute -top-3 w-12 h-1 bg-primary rounded-full shadow-[0_0_10px_rgba(0,101,144,0.4)]"></div>
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1, 'wght' 400">leaderboard</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Leaderboard</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-outline dark:text-outline-variant transition-all duration-300 hover:text-primary" href="profile.html">
+<span class="material-symbols-outlined text-[24px] font-light" style="font-variation-settings: 'wght' 300">person</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Profile</span>
+</a>
+</nav>
+
+<script>
+  // ─── Supabase Init ───
+  const SUPABASE_URL = "https://clbphhpprujjpdopfgtq.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsYnBoaHBwcnVqanBkb3BmZ3RxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3OTQwMzgsImV4cCI6MjA5NTM3MDAzOH0.udmaLNyKJodWU7oIHaEbsXdqxZ1Rqz-7CwLai2_6ahU";
+  let _supabase = null;
+  try {
+    if (window.supabase) {
+      _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    }
+  } catch (err) {
+    console.error("Failed to initialize Supabase:", err);
+  }
+
+  const podiumSection = document.getElementById('podium-section');
+  const listSection = document.getElementById('list-section');
+
+  // Avatar color palette for initials
+  const AVATAR_COLORS = [
+    { bg: 'bg-primary-container', text: 'text-on-primary-container' },
+    { bg: 'bg-tertiary-container', text: 'text-on-tertiary-container' },
+    { bg: 'bg-secondary-container', text: 'text-on-secondary-container' },
+  ];
+
+  function getInitials(name) {
+    return name.split(' ').map(w => w[0]).join('').toUpperCase().substring(0, 2);
+  }
+
+  // ─── Render Leaderboard ───
+  function renderLeaderboard(profiles) {
+    if (!profiles || profiles.length === 0) {
+      podiumSection.innerHTML = '<p class="text-center text-on-surface-variant font-body-lg col-span-full">No students yet!</p>';
+      return;
+    }
+
+    // Sort by total_points descending
+    profiles.sort((a, b) => b.total_points - a.total_points);
+
+    const top3 = profiles.slice(0, 3);
+    const rest = profiles.slice(3);
+
+    // ─── Podium ───
+    const podiumConfigs = [
+      { rank: 2, order: 'order-2 md:order-1', width: 'w-full md:w-1/4', mt: '', color: '#C0C0C0', label: '2ND', imgSize: 'w-20 h-20', gradient: 'from-white to-[#f0f0f0]', borderColor: 'border-outline-variant' },
+      { rank: 1, order: 'order-1 md:order-2', width: 'w-full md:w-1/3', mt: '-mt-lg md:-mt-xl z-20', color: '#fec700', label: '1ST', imgSize: 'w-24 h-24', gradient: 'from-[#ffe066] to-[#fec700]', borderColor: 'border-secondary', isStar: true },
+      { rank: 3, order: 'order-3 md:order-3', width: 'w-full md:w-1/4', mt: '', color: '#CD7F32', label: '3RD', imgSize: 'w-20 h-20', gradient: 'from-white to-[#fdf5eb]', borderColor: 'border-[#CD7F32]' },
+    ];
+
+    podiumSection.innerHTML = '';
+
+    podiumConfigs.forEach((cfg) => {
+      const idx = cfg.rank - 1;
+      if (!top3[idx]) return;
+      const p = top3[idx];
+      const initials = getInitials(p.username);
+
+      const bgClass = cfg.rank === 1 ? 'bg-secondary-container' : 'bg-surface-container-lowest';
+      const textClass = cfg.rank === 1 ? 'text-on-secondary-container' : '';
+
+      const div = document.createElement('div');
+      div.className = `flex flex-col items-center ${cfg.order} ${cfg.width} ${cfg.mt}`;
+      div.innerHTML = `
+        <div class="${bgClass} ambient-shadow rounded-xl p-md flex flex-col items-center w-full border-2 ${cfg.borderColor} relative pb-xl tactile-button bg-gradient-to-b ${cfg.gradient}">
+          <div class="absolute -top-${cfg.rank === 1 ? '8' : '6'} bg-[${cfg.color}] text-white font-label-bold text-label-bold px-${cfg.rank === 1 ? '6' : '4'} py-${cfg.rank === 1 ? '2' : '1'} rounded-full shadow-${cfg.rank === 1 ? 'lg' : 'md'} border-2 border-white flex items-center gap-1">
+            ${cfg.isStar ? '<span class="material-symbols-outlined" data-icon="star">star</span>' : ''}
+            ${cfg.label}
+          </div>
+          <div class="${cfg.imgSize} rounded-full border-4 border-[${cfg.color}] mb-sm flex items-center justify-center font-black text-2xl ${AVATAR_COLORS[idx % 3].bg} ${AVATAR_COLORS[idx % 3].text}">
+            ${initials}
+          </div>
+          <h3 class="font-title-md text-title-md text-center ${textClass} ${cfg.rank === 1 ? 'text-xl' : ''}">${p.username}</h3>
+          <p class="font-body-sm text-body-sm ${cfg.rank === 1 ? 'text-on-secondary-fixed-variant' : 'text-on-surface-variant'} mb-2">${p.school}</p>
+          <div class="flex items-center gap-1 ${cfg.rank === 1 ? 'bg-white px-4 py-2 rounded-full shadow-sm' : 'bg-[' + (cfg.rank === 2 ? '#f0f0f0' : '#fdf5eb') + '] px-3 py-1 rounded-full'}">
+            <span class="material-symbols-outlined text-[${cfg.color}]" data-icon="emoji_events">emoji_events</span>
+            <span class="font-label-bold text-label-bold ${cfg.rank === 1 ? 'text-on-secondary-container' : ''}">${p.total_points.toLocaleString()} pts</span>
+          </div>
+        </div>
+      `;
+      podiumSection.appendChild(div);
+    });
+
+    // ─── List (rank 4+) ───
+    // Keep header row
+    const headerRow = listSection.querySelector('.hidden.md\\:flex');
+    listSection.innerHTML = '';
+    if (headerRow) listSection.appendChild(headerRow);
+
+    rest.forEach((p, i) => {
+      const rank = i + 4;
+      const initials = getInitials(p.username);
+      const colorSet = AVATAR_COLORS[rank % 3];
+
+      const row = document.createElement('div');
+      row.className = 'flex items-center justify-between bg-surface-container-low hover:bg-surface-variant transition-colors p-3 rounded-lg border border-transparent hover:border-outline-variant cursor-pointer';
+      row.innerHTML = `
+        <div class="w-12 md:w-16 text-center font-title-md text-title-md text-on-surface-variant">${rank}</div>
+        <div class="flex items-center gap-3 flex-grow pl-2 md:pl-4">
+          <div class="w-10 h-10 rounded-full ${colorSet.bg} ${colorSet.text} flex items-center justify-center font-label-bold text-label-bold">${initials}</div>
+          <span class="font-body-lg text-body-lg font-bold">${p.username}</span>
+        </div>
+        <div class="hidden md:block w-1/3 text-on-surface-variant font-body-sm text-body-sm">${p.school}</div>
+        <div class="w-24 text-right font-label-bold text-label-bold text-primary flex items-center justify-end gap-1">
+          ${p.total_points.toLocaleString()}
+          <span class="material-symbols-outlined text-sm text-secondary-container" data-icon="stars">stars</span>
+        </div>
+      `;
+      listSection.appendChild(row);
+    });
+
+    // If no entries beyond top 3
+    if (rest.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'text-center py-4 text-on-surface-variant font-body-sm';
+      empty.textContent = 'More students coming soon!';
+      listSection.appendChild(empty);
+    }
+  }
+
+  // ─── Auth Guard + Initial Load + Real-Time ───
+  (async function init() {
+    if (!_supabase) return;
+    const { data: { session } } = await _supabase.auth.getSession();
+    if (!session) {
+      window.location.href = 'login.html';
+      return;
+    }
+
+    // Initial fetch
+    const { data: profiles } = await _supabase
+      .from('profiles')
+      .select('username, school, total_points')
+      .order('total_points', { ascending: false });
+
+    renderLeaderboard(profiles || []);
+
+    // ─── Real-Time Subscription ───
+    _supabase
+      .channel('leaderboard-realtime')
+      .on('postgres_changes', {
+        event: '*',
+        schema: 'public',
+        table: 'profiles'
+      }, async () => {
+        // Re-fetch and re-render on any profiles change
+        const { data: updated } = await _supabase
+          .from('profiles')
+          .select('username, school, total_points')
+          .order('total_points', { ascending: false });
+
+        renderLeaderboard(updated || []);
+
+        // Subtle pulse animation
+        podiumSection.classList.add('pulse');
+        setTimeout(() => podiumSection.classList.remove('pulse'), 400);
+      })
+      .subscribe();
+  })();
+</script>
+</body></html>

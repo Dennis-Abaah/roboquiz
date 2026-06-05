@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sign Up - RoboQuiz</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline-variant": "#bdc8d2",
+                      "surface": "#fbf9f8",
+                      "on-secondary": "#ffffff",
+                      "tertiary": "#2b6c00",
+                      "on-surface-variant": "#3e4850",
+                      "on-tertiary-fixed": "#082100",
+                      "surface-dim": "#dbd9d9",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-fixed": "#ffdf92",
+                      "surface-container-low": "#f5f3f3",
+                      "on-background": "#1b1c1c",
+                      "secondary-container": "#fec700",
+                      "surface-container-high": "#eae8e7",
+                      "primary-fixed": "#c8e6ff",
+                      "surface-tint": "#006590",
+                      "surface-container-highest": "#e4e2e2",
+                      "primary-container": "#1cb0f6",
+                      "secondary-fixed-dim": "#f4bf00",
+                      "inverse-on-surface": "#f2f0f0",
+                      "tertiary-container": "#51bd00",
+                      "on-primary": "#ffffff",
+                      "surface-container": "#efeded",
+                      "inverse-primary": "#88ceff",
+                      "on-primary-fixed": "#001e2e",
+                      "on-primary-container": "#00405d",
+                      "error": "#ba1a1a",
+                      "on-secondary-fixed": "#241a00",
+                      "background": "#fbf9f8",
+                      "on-error-container": "#93000a",
+                      "primary-fixed-dim": "#88ceff",
+                      "on-surface": "#1b1c1c",
+                      "on-tertiary": "#ffffff",
+                      "on-tertiary-fixed-variant": "#1f5100",
+                      "on-secondary-fixed-variant": "#594400",
+                      "secondary": "#755b00",
+                      "primary": "#006590",
+                      "tertiary-fixed-dim": "#6be026",
+                      "on-tertiary-container": "#194500",
+                      "on-primary-fixed-variant": "#004c6e",
+                      "surface-bright": "#fbf9f8",
+                      "tertiary-fixed": "#87fe45",
+                      "inverse-surface": "#303030",
+                      "error-container": "#ffdad6",
+                      "surface-variant": "#e4e2e2",
+                      "on-error": "#ffffff",
+                      "outline": "#6e7881",
+                      "on-secondary-container": "#6e5400"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "16px",
+                      "md": "24px",
+                      "lg": "32px",
+                      "xs": "4px",
+                      "sm": "12px",
+                      "xl": "48px",
+                      "container-max": "1200px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "body-sm": ["Plus Jakarta Sans"],
+                      "headline-lg-mobile": ["Plus Jakarta Sans"],
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "display-lg": ["Plus Jakarta Sans"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "title-md": ["Plus Jakarta Sans"],
+                      "label-bold": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "500"}],
+                      "headline-lg-mobile": ["20px", {"lineHeight": "1.3", "fontWeight": "800"}],
+                      "headline-lg": ["24px", {"lineHeight": "1.3", "fontWeight": "800"}],
+                      "display-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "500"}],
+                      "title-md": ["18px", {"lineHeight": "1.4", "fontWeight": "700"}],
+                      "label-bold": ["14px", {"lineHeight": "1.0", "fontWeight": "800"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Custom styles to handle specific design system requirements without arbitrary Tailwind classes */
+        .input-field {
+            border-width: 2px;
+            transition: all 0.2s ease-in-out;
+        }
+        .input-field:focus {
+            border-width: 3px;
+            padding-left: 11px; /* Adjust padding to prevent jumping when border thickens */
+            padding-right: 11px;
+            padding-top: 11px;
+            padding-bottom: 11px;
+        }
+        
+        .tactile-btn {
+            box-shadow: inset 0 -4px 0 0 var(--tw-shadow-color);
+            transition: all 0.1s ease-in-out;
+        }
+        .tactile-btn:active {
+            box-shadow: inset 0 -2px 0 0 var(--tw-shadow-color);
+            transform: translateY(2px);
+        }
+
+        .ambient-shadow {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface min-h-screen flex items-center justify-center p-gutter">
+<main class="w-full max-w-[480px]">
+<!-- Decorative Header / Mascot Area -->
+<div class="flex justify-center mb-md">
+<div class="w-24 h-24 bg-primary-container rounded-full flex items-center justify-center border-4 border-on-primary-container shadow-lg relative overflow-hidden">
+<img alt="Friendly robot mascot" class="w-full h-full object-cover" data-alt="A close-up illustration of a highly stylized, friendly robot face with glowing digital eyes and a bright, cheerful expression. The background is a solid, vibrant blue. The lighting is soft and modern, casting subtle, rounded shadows that emphasize the robot's physical, toy-like appearance, perfectly fitting a light-mode educational platform aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDihvMfbAAPH-z5owO2kq7az_bSl7jdfWODO0E6CPNdcjHAJQv9-hIQnxCMJElTZ2yTKN5u-4KBlIkVifnfCTaFGceCdi1LoxYTUbxYqiBNOHFr_i_jzGKkMXg0324aEL4sHgRvD289IKV4mqhOpGa7q86ECwZAS2FrNtMFLjgZXLA71RaWslxFjrGPzIpq9hGIaSSBZWsOEupWqgQlw0s3COjI9veZNda6TxpfV2RD6-z04lpe_ztYwl4uWJt52CPiP2tVG-QixYg"/>
+</div>
+</div>
+<!-- Form Card -->
+<div class="bg-surface-container-lowest rounded-xl ambient-shadow border border-surface-variant p-lg md:p-xl">
+<div class="text-center mb-lg">
+<h1 class="font-display-lg text-display-lg text-primary mb-xs">RoboQuiz</h1>
+<p class="font-title-md text-title-md text-on-surface">Create your student account</p>
+</div>
+<form action="#" class="space-y-md" method="POST">
+<!-- Name Field -->
+<div class="flex flex-col space-y-xs">
+<label class="font-label-bold text-label-bold text-on-surface-variant ml-xs" for="name">Full Name</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline">person</span>
+<input class="input-field w-full bg-surface-container-lowest border-outline-variant text-on-surface font-body-lg text-body-lg rounded-lg pl-[40px] pr-sm py-sm focus:border-primary focus:outline-none placeholder:text-outline-variant" id="name" name="name" placeholder="e.g. Alex Turing" required="" type="text"/>
+</div>
+</div>
+<!-- School Dropdown -->
+<div class="flex flex-col space-y-xs">
+<label class="font-label-bold text-label-bold text-on-surface-variant ml-xs" for="school">School</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline">school</span>
+<select class="input-field w-full bg-surface-container-lowest border-outline-variant text-on-surface font-body-lg text-body-lg rounded-lg pl-[40px] pr-sm py-sm focus:border-primary focus:outline-none appearance-none" id="school" name="school" required="">
+<option disabled="" selected="" value="">Select your school...</option>
+<option value="oakwood">Oakwood Elementary</option>
+<option value="maple">Maple Valley Middle</option>
+<option value="pinehurst">Pinehurst High</option>
+<option value="other">Other</option>
+</select>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Password Field -->
+<div class="flex flex-col space-y-xs">
+<label class="font-label-bold text-label-bold text-on-surface-variant ml-xs" for="password">Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline">lock</span>
+<input class="input-field w-full bg-surface-container-lowest border-outline-variant text-on-surface font-body-lg text-body-lg rounded-lg pl-[40px] pr-sm py-sm focus:border-primary focus:outline-none placeholder:text-outline-variant" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+</div>
+</div>
+<!-- Confirm Password Field -->
+<div class="flex flex-col space-y-xs">
+<label class="font-label-bold text-label-bold text-on-surface-variant ml-xs" for="confirm_password">Confirm Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline">lock_clock</span>
+<input class="input-field w-full bg-surface-container-lowest border-outline-variant text-on-surface font-body-lg text-body-lg rounded-lg pl-[40px] pr-sm py-sm focus:border-primary focus:outline-none placeholder:text-outline-variant" id="confirm_password" name="confirm_password" placeholder="••••••••" required="" type="password"/>
+</div>
+</div>
+<!-- Action Button -->
+<div class="pt-sm">
+<button class="w-full bg-secondary-container text-on-secondary-container font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg py-sm rounded-lg tactile-btn shadow-on-secondary-fixed-variant flex items-center justify-center gap-xs" type="submit">
+                        Create Account
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+</button>
+</div>
+</form>
+<!-- Login Link -->
+<div class="mt-lg text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Already have an account? 
+                    <a class="font-label-bold text-label-bold text-primary hover:text-primary-container transition-colors underline decoration-2 underline-offset-2" href="#">Log in</a>
+</p>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RoboQuiz - Leaderboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#2b6c00",
+                        "outline": "#6e7881",
+                        "surface-dim": "#dbd9d9",
+                        "on-primary-fixed-variant": "#004c6e",
+                        "surface-container": "#efeded",
+                        "surface-tint": "#006590",
+                        "secondary-fixed-dim": "#f4bf00",
+                        "outline-variant": "#bdc8d2",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#87fe45",
+                        "on-secondary-container": "#6e5400",
+                        "on-background": "#1b1c1c",
+                        "on-primary-fixed": "#001e2e",
+                        "on-tertiary-container": "#194500",
+                        "inverse-on-surface": "#f2f0f0",
+                        "tertiary-fixed-dim": "#6be026",
+                        "secondary": "#755b00",
+                        "surface-container-low": "#f5f3f3",
+                        "on-secondary-fixed-variant": "#594400",
+                        "on-surface-variant": "#3e4850",
+                        "surface-variant": "#e4e2e2",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#88ceff",
+                        "surface": "#fbf9f8",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#1f5100",
+                        "on-primary-container": "#00405d",
+                        "on-tertiary-fixed": "#082100",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#fec700",
+                        "surface-container-highest": "#e4e2e2",
+                        "inverse-primary": "#88ceff",
+                        "surface-container-high": "#eae8e7",
+                        "surface-bright": "#fbf9f8",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-surface": "#1b1c1c",
+                        "secondary-fixed": "#ffdf92",
+                        "primary-fixed": "#c8e6ff",
+                        "tertiary-container": "#51bd00",
+                        "background": "#fbf9f8",
+                        "primary-container": "#1cb0f6",
+                        "inverse-surface": "#303030",
+                        "on-secondary-fixed": "#241a00",
+                        "on-primary": "#ffffff",
+                        "primary": "#006590"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "32px",
+                        "container-max": "1200px",
+                        "base": "8px",
+                        "md": "24px",
+                        "xl": "48px",
+                        "gutter": "16px",
+                        "sm": "12px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-sm": ["Plus Jakarta Sans"],
+                        "label-bold": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "title-md": ["18px", {"lineHeight": "1.4", "fontWeight": "700"}],
+                        "headline-lg": ["24px", {"lineHeight": "1.3", "fontWeight": "800"}],
+                        "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["20px", {"lineHeight": "1.3", "fontWeight": "800"}],
+                        "display-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "500"}],
+                        "label-bold": ["14px", {"lineHeight": "1.0", "fontWeight": "800"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .tactile-button {
+            border-bottom-width: 4px;
+            border-bottom-color: rgba(0,0,0,0.2);
+        }
+        .tactile-button:active {
+            transform: translateY(2px);
+            border-bottom-width: 2px;
+            margin-top: 2px;
+        }
+        .ambient-shadow {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-lg min-h-screen flex flex-col pb-24 md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-on-background hidden md:flex justify-between items-center w-full px-lg py-sm max-w-container-max mx-auto docked full-width top-0 border-b-4 border-outline-variant dark:border-outline flat no shadows z-40 sticky top-0">
+<div class="flex items-center gap-4">
+<h1 class="font-display-lg text-display-lg font-black text-primary dark:text-primary-fixed-dim">RoboQuiz</h1>
+</div>
+<nav class="flex items-center gap-8 h-full">
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container dark:hover:bg-inverse-surface rounded-lg px-4 py-2 font-headline-lg text-headline-lg h-full flex items-center" href="#">
+                Home
+            </a>
+<a class="text-primary dark:text-primary-fixed-dim border-b-4 border-primary dark:border-primary-fixed-dim pb-2 font-headline-lg text-headline-lg h-full flex items-center pt-2 Active: translate-y-0.5 transition-transform" href="#">
+                Leaderboard
+            </a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container dark:hover:bg-inverse-surface rounded-lg px-4 py-2 font-headline-lg text-headline-lg h-full flex items-center" href="#">
+                Profile
+            </a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<img alt="Student avatar" class="w-10 h-10 rounded-full border-2 border-primary" data-alt="A small, friendly profile picture of a young male student with brown hair smiling warmly. The image is bright and cheerful, fitting an educational app context. Clean background, high quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCN64IYFk_S1Rb1lBMncD0bNdc0aTMqWQW1Ql6YVQrEHRq6wdRDp92rTAqFuUUn5mStNpO9GnJKeu0RRHR5Lq0AJwZZ2OsrQYtcI7ZMd5fiWGUm3v2bgN3NtFdasLBVkHo7TeVFhN7U-6eH6JbewwiVXhF4-wZtkjSZSak-fHZY-3mV06mTMJAX1siGhKZcpUGLde3HEt3RJLwG589PfMdSC-fI5FT4otQ5jhr-3PZDhMG5uzR6Q7tpZotzQdNqpfY1q8RkJf01538"/>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-gutter md:px-lg py-lg flex flex-col gap-lg relative">
+<div class="text-center mb-md">
+<h2 class="font-display-lg text-display-lg text-on-background mb-xs">Global Leaderboard</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">See who's currently mastering the bots!</p>
+</div>
+<!-- Podium Section (Top 3) -->
+<section class="flex flex-col md:flex-row justify-center items-end gap-md md:gap-lg mb-xl mt-xl px-4 md:px-0">
+<!-- Rank 2 (Silver) -->
+<div class="flex flex-col items-center order-2 md:order-1 w-full md:w-1/4">
+<div class="bg-surface-container-lowest ambient-shadow rounded-xl p-md flex flex-col items-center w-full border-2 border-outline-variant relative pb-xl z-10 tactile-button bg-gradient-to-b from-white to-[#f0f0f0]">
+<div class="absolute -top-6 bg-[#C0C0C0] text-white font-label-bold text-label-bold px-4 py-1 rounded-full shadow-md border-2 border-white">2ND</div>
+<img alt="User Avatar" class="w-20 h-20 rounded-full border-4 border-[#C0C0C0] mb-sm object-cover" data-alt="A cheerful profile picture of a young boy with curly hair, smiling. Bright, educational app style lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASeQ7UjzsorC43mEIyw1GodI-PgZbeXEUlUGV9_Djum91-Y1UBrmkDYAkBU_pN20esCbz05TlLXZHZi2FhEef7B876xBy7H8lp4W15zrRTw2ghuozlyHnrx9xxEjwaFXA-HV1LVIeZjb6IdEBByn3gi8qKnfPChuHhVurr_8B-DQWc99rgIulzcgokYuCxRg8zYO1tpoZjT_wRNDij3pDzv3IP51Flu44ASsaD-Pkc2qN4Q0l9TM8Df1FKMViUZo7HXM5gTRnQVi8"/>
+<h3 class="font-title-md text-title-md text-center">Alex M.</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">Tech Academy</p>
+<div class="flex items-center gap-1 bg-[#f0f0f0] px-3 py-1 rounded-full">
+<span class="material-symbols-outlined text-[#C0C0C0]" data-icon="emoji_events">emoji_events</span>
+<span class="font-label-bold text-label-bold">2,150 pts</span>
+</div>
+</div>
+</div>
+<!-- Rank 1 (Gold) -->
+<div class="flex flex-col items-center order-1 md:order-2 w-full md:w-1/3 -mt-lg md:-mt-xl z-20">
+<div class="bg-secondary-container ambient-shadow rounded-xl p-md flex flex-col items-center w-full border-2 border-secondary relative pb-xl tactile-button bg-gradient-to-b from-[#ffe066] to-[#fec700]">
+<div class="absolute -top-8 bg-secondary text-white font-label-bold text-label-bold px-6 py-2 rounded-full shadow-lg border-2 border-white flex items-center gap-1">
+<span class="material-symbols-outlined" data-icon="star">star</span>
+                        1ST
+                    </div>
+<img alt="User Avatar" class="w-24 h-24 rounded-full border-4 border-secondary mb-sm object-cover" data-alt="A smiling profile picture of a young girl with glasses, looking excited. Bright, friendly educational aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAluG3TDDiZE7jo6XaXlRFg4Mf4EgdmQ4NbUm-DWLO0jY3LsvA2PqeVA7wbD3XuI9s0mLEwzr-03kz4saC2uXzfFVhblDveLvwsMCIle9PExX_FEMBbcRrqk1b0xett8GIgbhcKuu5qJ-NaJu-MSZoL9Xl6z_E294RGSfyg7tXkxUTRAmLfIRB0quITegS2G7_c30CSMb59GuoHRuIbGFD1I5NAGAp1Hh9FvBvxFpJHFILUGK76fXQ7CU3avCIxF-V8BFTBGKlT7GY"/>
+<h3 class="font-title-md text-title-md text-center text-on-secondary-container text-xl">Sarah L.</h3>
+<p class="font-body-sm text-body-sm text-on-secondary-fixed-variant mb-2">Robotics High</p>
+<div class="flex items-center gap-1 bg-white px-4 py-2 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-secondary-container" data-icon="emoji_events">emoji_events</span>
+<span class="font-label-bold text-label-bold text-on-secondary-container">2,400 pts</span>
+</div>
+</div>
+</div>
+<!-- Rank 3 (Bronze) -->
+<div class="flex flex-col items-center order-3 md:order-3 w-full md:w-1/4">
+<div class="bg-surface-container-lowest ambient-shadow rounded-xl p-md flex flex-col items-center w-full border-2 border-[#CD7F32] relative pb-xl tactile-button bg-gradient-to-b from-white to-[#fdf5eb]">
+<div class="absolute -top-6 bg-[#CD7F32] text-white font-label-bold text-label-bold px-4 py-1 rounded-full shadow-md border-2 border-white">3RD</div>
+<img alt="User Avatar" class="w-20 h-20 rounded-full border-4 border-[#CD7F32] mb-sm object-cover" data-alt="A friendly profile picture of a young teenager smiling. Bright, clean background suitable for a learning app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-fi6dairExxGQJNjvFQyEi3CHNUZ4jDUQ4g9y55RNhMTwI9ROAl_BQ17055obUH0nHX_GqOCtNDuRp48M_6DfsA7vKEn_5Uf3_9TDozmrqyBSX0km7KQjxK2DjhcNKXuSsM0IqylgotICusJbHXkeIoazeDd18KvHyjQXPDfc3SGFT8IgFz6wA2Lf5MYib3P2ngulMqXw_5Xozed47JV0FygGoIhfQxbQVw9u6B-M7qzLRFECSHsbdzZJ3AxQ6shLcmdoElvNPeI"/>
+<h3 class="font-title-md text-title-md text-center">Jordan K.</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">Code School</p>
+<div class="flex items-center gap-1 bg-[#fdf5eb] px-3 py-1 rounded-full">
+<span class="material-symbols-outlined text-[#CD7F32]" data-icon="emoji_events">emoji_events</span>
+<span class="font-label-bold text-label-bold">1,980 pts</span>
+</div>
+</div>
+</div>
+</section>
+<!-- List Section -->
+<section class="bg-surface-container-lowest rounded-xl p-4 md:p-md ambient-shadow border-2 border-surface-variant">
+<div class="flex flex-col gap-sm">
+<!-- Header row (Desktop only) -->
+<div class="hidden md:flex items-center justify-between px-4 py-2 border-b-2 border-surface-variant text-on-surface-variant font-label-bold text-label-bold mb-2">
+<div class="w-16 text-center">Rank</div>
+<div class="flex-grow pl-4">Student</div>
+<div class="w-1/3">School</div>
+<div class="w-24 text-right">Points</div>
+</div>
+<!-- List Items -->
+<div class="flex items-center justify-between bg-surface-container-low hover:bg-surface-variant transition-colors p-3 rounded-lg border border-transparent hover:border-outline-variant cursor-pointer">
+<div class="w-12 md:w-16 text-center font-title-md text-title-md text-on-surface-variant">4</div>
+<div class="flex items-center gap-3 flex-grow pl-2 md:pl-4">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-label-bold text-label-bold">ET</div>
+<span class="font-body-lg text-body-lg font-bold">Emma T.</span>
+</div>
+<div class="hidden md:block w-1/3 text-on-surface-variant font-body-sm text-body-sm">Tech Academy</div>
+<div class="w-24 text-right font-label-bold text-label-bold text-primary flex items-center justify-end gap-1">
+                        1,850
+                        <span class="material-symbols-outlined text-sm text-secondary-container" data-icon="stars">stars</span>
+</div>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low hover:bg-surface-variant transition-colors p-3 rounded-lg border border-transparent hover:border-outline-variant cursor-pointer">
+<div class="w-12 md:w-16 text-center font-title-md text-title-md text-on-surface-variant">5</div>
+<div class="flex items-center gap-3 flex-grow pl-2 md:pl-4">
+<div class="w-10 h-10 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-label-bold text-label-bold">DW</div>
+<span class="font-body-lg text-body-lg font-bold">David W.</span>
+</div>
+<div class="hidden md:block w-1/3 text-on-surface-variant font-body-sm text-body-sm">Robotics High</div>
+<div class="w-24 text-right font-label-bold text-label-bold text-primary flex items-center justify-end gap-1">
+                        1,720
+                        <span class="material-symbols-outlined text-sm text-secondary-container" data-icon="stars">stars</span>
+</div>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low hover:bg-surface-variant transition-colors p-3 rounded-lg border border-transparent hover:border-outline-variant cursor-pointer">
+<div class="w-12 md:w-16 text-center font-title-md text-title-md text-on-surface-variant">6</div>
+<div class="flex items-center gap-3 flex-grow pl-2 md:pl-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-bold text-label-bold">MC</div>
+<span class="font-body-lg text-body-lg font-bold">Mia C.</span>
+</div>
+<div class="hidden md:block w-1/3 text-on-surface-variant font-body-sm text-body-sm">Code School</div>
+<div class="w-24 text-right font-label-bold text-label-bold text-primary flex items-center justify-end gap-1">
+                        1,690
+                        <span class="material-symbols-outlined text-sm text-secondary-container" data-icon="stars">stars</span>
+</div>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low hover:bg-surface-variant transition-colors p-3 rounded-lg border border-transparent hover:border-outline-variant cursor-pointer">
+<div class="w-12 md:w-16 text-center font-title-md text-title-md text-on-surface-variant">7</div>
+<div class="flex items-center gap-3 flex-grow pl-2 md:pl-4">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-label-bold text-label-bold">RJ</div>
+<span class="font-body-lg text-body-lg font-bold">Ryan J.</span>
+</div>
+<div class="hidden md:block w-1/3 text-on-surface-variant font-body-sm text-body-sm">Tech Academy</div>
+<div class="w-24 text-right font-label-bold text-label-bold text-primary flex items-center justify-end gap-1">
+                        1,550
+                        <span class="material-symbols-outlined text-sm text-secondary-container" data-icon="stars">stars</span>
+</div>
+</div>
+</div>
+<div class="mt-md text-center">
+<button class="bg-surface-container hover:bg-surface-variant text-on-surface-variant font-label-bold text-label-bold py-2 px-6 rounded-full tactile-button transition-colors">
+                    Load More
+                </button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 md:hidden bg-white/80 dark:bg-on-background/80 backdrop-blur-xl border-t border-outline-variant/30 px-6 pb-6 pt-3 flex justify-around items-center shadow-[0_-8px_30px_rgb(0,0,0,0.04)]">
+<a class="flex flex-col items-center justify-center gap-1 text-outline dark:text-outline-variant transition-all duration-300 hover:text-primary" href="#">
+<span class="material-symbols-outlined text-[24px] font-light" style="font-variation-settings: 'wght' 300">home</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Home</span>
+</a>
+<a class="relative flex flex-col items-center justify-center gap-1 text-primary dark:text-primary-fixed-dim transition-all duration-300" href="#">
+<div class="absolute -top-3 w-12 h-1 bg-primary rounded-full shadow-[0_0_10px_rgba(0,101,144,0.4)]"></div>
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1, 'wght' 400">leaderboard</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Leaderboard</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-outline dark:text-outline-variant transition-all duration-300 hover:text-primary" href="#">
+<span class="material-symbols-outlined text-[24px] font-light" style="font-variation-settings: 'wght' 300">person</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Profile</span>
+</a>
+</nav>
+</body></html>
