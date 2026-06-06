@@ -1,396 +1,441 @@
 <!DOCTYPE html>
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>RoboStarz - Home</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Supabase JS CDN -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "tertiary": "#2b6c00",
-                      "outline": "#6e7881",
-                      "surface-dim": "#dbd9d9",
-                      "on-primary-fixed-variant": "#004c6e",
-                      "surface-container": "#efeded",
-                      "surface-tint": "#006590",
-                      "secondary-fixed-dim": "#f4bf00",
-                      "outline-variant": "#bdc8d2",
-                      "surface-container-lowest": "#ffffff",
-                      "on-error": "#ffffff",
-                      "tertiary-fixed": "#87fe45",
-                      "on-secondary-container": "#6e5400",
-                      "on-background": "#1b1c1c",
-                      "on-primary-fixed": "#001e2e",
-                      "on-tertiary-container": "#194500",
-                      "inverse-on-surface": "#f2f0f0",
-                      "tertiary-fixed-dim": "#6be026",
-                      "secondary": "#755b00",
-                      "surface-container-low": "#f5f3f3",
-                      "on-secondary-fixed-variant": "#594400",
-                      "on-surface-variant": "#3e4850",
-                      "surface-variant": "#e4e2e2",
-                      "on-error-container": "#93000a",
-                      "primary-fixed-dim": "#88ceff",
-                      "surface": "#fbf9f8",
-                      "on-secondary": "#ffffff",
-                      "on-tertiary-fixed-variant": "#1f5100",
-                      "on-primary-container": "#00405d",
-                      "on-tertiary-fixed": "#082100",
-                      "error-container": "#ffdad6",
-                      "secondary-container": "#fec700",
-                      "surface-container-highest": "#e4e2e2",
-                      "inverse-primary": "#88ceff",
-                      "surface-container-high": "#eae8e7",
-                      "surface-bright": "#fbf9f8",
-                      "on-tertiary": "#ffffff",
-                      "error": "#ba1a1a",
-                      "on-surface": "#1b1c1c",
-                      "secondary-fixed": "#ffdf92",
-                      "primary-fixed": "#c8e6ff",
-                      "tertiary-container": "#51bd00",
-                      "background": "#fbf9f8",
-                      "primary-container": "#1cb0f6",
-                      "inverse-surface": "#303030",
-                      "on-secondary-fixed": "#241a00",
-                      "on-primary": "#ffffff",
-                      "primary": "#006590"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.25rem",
-                      "lg": "0.5rem",
-                      "xl": "0.75rem",
-                      "full": "9999px",
-                      "2xl": "1rem",
-                      "3xl": "1.5rem"
-              },
-              "spacing": {
-                      "lg": "32px",
-                      "container-max": "1200px",
-                      "base": "8px",
-                      "md": "24px",
-                      "xl": "48px",
-                      "gutter": "16px",
-                      "sm": "12px",
-                      "xs": "4px"
-              },
-              "fontFamily": {
-                      "title-md": [
-                              "Plus Jakarta Sans"
-                      ],
-                      "headline-lg": [
-                              "Plus Jakarta Sans"
-                      ],
-                      "body-lg": [
-                              "Plus Jakarta Sans"
-                      ],
-                      "headline-lg-mobile": [
-                              "Plus Jakarta Sans"
-                      ],
-                      "display-lg": [
-                              "Plus Jakarta Sans"
-                      ],
-                      "body-sm": [
-                              "Plus Jakarta Sans"
-                      ],
-                      "label-bold": [
-                              "Plus Jakarta Sans"
-                      ]
-              },
-              "fontSize": {
-                      "title-md": [
-                              "18px",
-                              {
-                                      "lineHeight": "1.4",
-                                      "fontWeight": "700"
-                              }
-                      ],
-                      "headline-lg": [
-                              "24px",
-                              {
-                                      "lineHeight": "1.3",
-                                      "fontWeight": "800"
-                              }
-                      ],
-                      "body-lg": [
-                              "16px",
-                              {
-                                      "lineHeight": "1.6",
-                                      "fontWeight": "500"
-                              }
-                      ],
-                      "headline-lg-mobile": [
-                              "20px",
-                              {
-                                      "lineHeight": "1.3",
-                                      "fontWeight": "800"
-                              }
-                      ],
-                      "display-lg": [
-                              "32px",
-                              {
-                                      "lineHeight": "1.2",
-                                      "letterSpacing": "-0.02em",
-                                      "fontWeight": "800"
-                              }
-                      ],
-                      "body-sm": [
-                              "14px",
-                              {
-                                      "lineHeight": "1.5",
-                                      "fontWeight": "500"
-                              }
-                      ],
-                      "label-bold": [
-                              "14px",
-                              {
-                                      "lineHeight": "1.0",
-                                      "fontWeight": "800"
-                              }
-                      ]
-              }
-            }
-          }
-        }
-    </script>
-<style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        
-        .tactile-btn {
-            border-bottom-width: 4px;
-            transition: all 0.15s ease;
-        }
-        .tactile-btn:active {
-            transform: translateY(4px);
-            border-bottom-width: 0px;
-            margin-bottom: 4px;
-        }
+<html class="light" lang="en">
 
-        .card-shadow {
-            box-shadow: 0px 8px 24px rgba(27, 28, 28, 0.08);
-        }
-        
-        .hero-gradient {
-            background: linear-gradient(135deg, #e0f2fe 0%, #f3e8ff 100%);
-        }
+<head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>RoboStarz - Home</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&amp;display=swap"
+                rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+                rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+                rel="stylesheet" />
+        <!-- Supabase JS CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script id="tailwind-config">
+                tailwind.config = {
+                        darkMode: "class",
+                        theme: {
+                                extend: {
+                                        "colors": {
+                                                "tertiary": "#2b6c00",
+                                                "outline": "#6e7881",
+                                                "surface-dim": "#dbd9d9",
+                                                "on-primary-fixed-variant": "#004c6e",
+                                                "surface-container": "#efeded",
+                                                "surface-tint": "#006590",
+                                                "secondary-fixed-dim": "#f4bf00",
+                                                "outline-variant": "#bdc8d2",
+                                                "surface-container-lowest": "#ffffff",
+                                                "on-error": "#ffffff",
+                                                "tertiary-fixed": "#87fe45",
+                                                "on-secondary-container": "#6e5400",
+                                                "on-background": "#1b1c1c",
+                                                "on-primary-fixed": "#001e2e",
+                                                "on-tertiary-container": "#194500",
+                                                "inverse-on-surface": "#f2f0f0",
+                                                "tertiary-fixed-dim": "#6be026",
+                                                "secondary": "#755b00",
+                                                "surface-container-low": "#f5f3f3",
+                                                "on-secondary-fixed-variant": "#594400",
+                                                "on-surface-variant": "#3e4850",
+                                                "surface-variant": "#e4e2e2",
+                                                "on-error-container": "#93000a",
+                                                "primary-fixed-dim": "#88ceff",
+                                                "surface": "#fbf9f8",
+                                                "on-secondary": "#ffffff",
+                                                "on-tertiary-fixed-variant": "#1f5100",
+                                                "on-primary-container": "#00405d",
+                                                "on-tertiary-fixed": "#082100",
+                                                "error-container": "#ffdad6",
+                                                "secondary-container": "#fec700",
+                                                "surface-container-highest": "#e4e2e2",
+                                                "inverse-primary": "#88ceff",
+                                                "surface-container-high": "#eae8e7",
+                                                "surface-bright": "#fbf9f8",
+                                                "on-tertiary": "#ffffff",
+                                                "error": "#ba1a1a",
+                                                "on-surface": "#1b1c1c",
+                                                "secondary-fixed": "#ffdf92",
+                                                "primary-fixed": "#c8e6ff",
+                                                "tertiary-container": "#51bd00",
+                                                "background": "#fbf9f8",
+                                                "primary-container": "#1cb0f6",
+                                                "inverse-surface": "#303030",
+                                                "on-secondary-fixed": "#241a00",
+                                                "on-primary": "#ffffff",
+                                                "primary": "#006590"
+                                        },
+                                        "borderRadius": {
+                                                "DEFAULT": "0.25rem",
+                                                "lg": "0.5rem",
+                                                "xl": "0.75rem",
+                                                "full": "9999px",
+                                                "2xl": "1rem",
+                                                "3xl": "1.5rem"
+                                        },
+                                        "spacing": {
+                                                "lg": "32px",
+                                                "container-max": "1200px",
+                                                "base": "8px",
+                                                "md": "24px",
+                                                "xl": "48px",
+                                                "gutter": "16px",
+                                                "sm": "12px",
+                                                "xs": "4px"
+                                        },
+                                        "fontFamily": {
+                                                "title-md": [
+                                                        "Plus Jakarta Sans"
+                                                ],
+                                                "headline-lg": [
+                                                        "Plus Jakarta Sans"
+                                                ],
+                                                "body-lg": [
+                                                        "Plus Jakarta Sans"
+                                                ],
+                                                "headline-lg-mobile": [
+                                                        "Plus Jakarta Sans"
+                                                ],
+                                                "display-lg": [
+                                                        "Plus Jakarta Sans"
+                                                ],
+                                                "body-sm": [
+                                                        "Plus Jakarta Sans"
+                                                ],
+                                                "label-bold": [
+                                                        "Plus Jakarta Sans"
+                                                ]
+                                        },
+                                        "fontSize": {
+                                                "title-md": [
+                                                        "18px",
+                                                        {
+                                                                "lineHeight": "1.4",
+                                                                "fontWeight": "700"
+                                                        }
+                                                ],
+                                                "headline-lg": [
+                                                        "24px",
+                                                        {
+                                                                "lineHeight": "1.3",
+                                                                "fontWeight": "800"
+                                                        }
+                                                ],
+                                                "body-lg": [
+                                                        "16px",
+                                                        {
+                                                                "lineHeight": "1.6",
+                                                                "fontWeight": "500"
+                                                        }
+                                                ],
+                                                "headline-lg-mobile": [
+                                                        "20px",
+                                                        {
+                                                                "lineHeight": "1.3",
+                                                                "fontWeight": "800"
+                                                        }
+                                                ],
+                                                "display-lg": [
+                                                        "32px",
+                                                        {
+                                                                "lineHeight": "1.2",
+                                                                "letterSpacing": "-0.02em",
+                                                                "fontWeight": "800"
+                                                        }
+                                                ],
+                                                "body-sm": [
+                                                        "14px",
+                                                        {
+                                                                "lineHeight": "1.5",
+                                                                "fontWeight": "500"
+                                                        }
+                                                ],
+                                                "label-bold": [
+                                                        "14px",
+                                                        {
+                                                                "lineHeight": "1.0",
+                                                                "fontWeight": "800"
+                                                        }
+                                                ]
+                                        }
+                                }
+                        }
+                }
+        </script>
+        <style>
+                body {
+                        font-family: 'Plus Jakarta Sans', sans-serif;
+                }
 
-        .curved-bottom {
-            clip-path: ellipse(150% 100% at 50% 0%);
-        }
+                .tactile-btn {
+                        border-bottom-width: 4px;
+                        transition: all 0.15s ease;
+                }
 
-        /* Skeleton loading animation */
-        .skeleton {
-            background: linear-gradient(90deg, #efeded 25%, #e4e2e2 50%, #efeded 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-            border-radius: 8px;
-        }
-        @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-    </style>
+                .tactile-btn:active {
+                        transform: translateY(4px);
+                        border-bottom-width: 0px;
+                        margin-bottom: 4px;
+                }
+
+                .card-shadow {
+                        box-shadow: 0px 8px 24px rgba(27, 28, 28, 0.08);
+                }
+
+                .hero-gradient {
+                        background: linear-gradient(135deg, #e0f2fe 0%, #f3e8ff 100%);
+                }
+
+                .curved-bottom {
+                        clip-path: ellipse(150% 100% at 50% 0%);
+                }
+
+                /* Skeleton loading animation */
+                .skeleton {
+                        background: linear-gradient(90deg, #efeded 25%, #e4e2e2 50%, #efeded 75%);
+                        background-size: 200% 100%;
+                        animation: shimmer 1.5s infinite;
+                        border-radius: 8px;
+                }
+
+                @keyframes shimmer {
+                        0% {
+                                background-position: 200% 0;
+                        }
+
+                        100% {
+                                background-position: -200% 0;
+                        }
+                }
+        </style>
 </head>
+
 <body class="bg-background text-on-background min-h-screen pb-[100px] md:pb-0">
-<header class="bg-surface border-b-4 border-outline-variant flex justify-between items-center w-full px-gutter py-3 sticky top-0 z-50">
- <script>
-  atOptions = {
-    'key' : '900280bb8c0ae5261ab0293d212cb072',
-    'format' : 'iframe',
-    'height' : 60,
-    'width' : 468,
-    'params' : {}
-  };
-</script>
-<script src="https://www.highperformanceformat.com/900280bb8c0ae5261ab0293d212cb072/invoke.js"></script>
-</header>
-       
+        <header
+                class="bg-surface border-b-4 border-outline-variant flex justify-between items-center w-full px-gutter py-3 sticky top-0 z-50">
+                <script>
+                        atOptions = {
+                                'key': '900280bb8c0ae5261ab0293d212cb072',
+                                'format': 'iframe',
+                                'height': 60,
+                                'width': 468,
+                                'params': {}
+                        };
+                </script>
+                <script src="https://www.highperformanceformat.com/900280bb8c0ae5261ab0293d212cb072/invoke.js"></script>
+        </header>
 
-<!-- TopAppBar (Hidden on Mobile) -->
-<nav class="hidden md:flex justify-between items-center w-full px-lg py-sm max-w-container-max mx-auto bg-surface dark:bg-on-background top-0 z-50 sticky border-b-4 border-outline-variant dark:border-outline">
+
+        <!-- TopAppBar (Hidden on Mobile) -->
+        <nav
+                class="hidden md:flex justify-between items-center w-full px-lg py-sm max-w-container-max mx-auto bg-surface dark:bg-on-background top-0 z-50 sticky border-b-4 border-outline-variant dark:border-outline">
+                <script>
+                        atOptions = {
+                                'key': '04a587728dd16c3217988170ec251dcf',
+                                'format': 'iframe',
+                                'height': 50,
+                                'width': 320,
+                                'params': {}
+                        };
+                </script>
+                <script src="https://www.highperformanceformat.com/04a587728dd16c3217988170ec251dcf/invoke.js"></script>
+                <div class="font-display-lg text-display-lg font-black text-primary dark:text-primary-fixed-dim">
+                        RoboStarz
+                </div>
+                <ul class="flex items-center gap-md">
+                        <li>
+                                <a class="flex flex-col items-center gap-1 text-primary dark:text-primary-fixed-dim border-b-4 border-primary dark:border-primary-fixed-dim pb-2 translate-y-0.5 transition-transform hover:bg-surface-container dark:hover:bg-inverse-surface rounded-lg px-2"
+                                        href="index.html">
+                                        <span
+                                                class="font-label-bold text-label-bold uppercase tracking-wider">Home</span>
+                                </a>
+                        </li>
+                        <li>
+                                <a class="flex flex-col items-center gap-1 text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container dark:hover:bg-inverse-surface rounded-lg px-2 py-2"
+                                        href="leaderboard.html">
+                                        <span
+                                                class="font-label-bold text-label-bold uppercase tracking-wider">Leaderboard</span>
+                                </a>
+                        </li>
+                        <li>
+                                <a class="flex flex-col items-center gap-1 text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container dark:hover:bg-inverse-surface rounded-lg px-2 py-2"
+                                        href="profile.html">
+                                        <span
+                                                class="font-label-bold text-label-bold uppercase tracking-wider">Profile</span>
+                                </a>
+                        </li>
+                </ul>
+                <div class="flex items-center gap-sm">
+                        <button
+                                class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+                                <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+                        </button>
+                        <button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors"
+                                onclick="window.location.href='admin.html'">
+                                <span class="material-symbols-outlined" data-icon="settings">settings</span>
+                        </button>
+                        <img alt="Student avatar"
+                                class="w-10 h-10 rounded-full border-2 border-primary object-cover ml-2" id="nav-avatar"
+                                src="app-img.png" />
+                </div>
+        </nav>
+        <!-- Main Content Canvas -->
+        <main class="max-w-container-max mx-auto md:px-lg">
+                <!-- Hero Section -->
+                <div class="relative pt-lg px-gutter pb-xl md:rounded-b-3xl md:mt-4 hero-gradient overflow-hidden">
+                        <div class="absolute bottom-0 left-0 w-full h-16 bg-background curved-bottom md:hidden z-0">
+                        </div>
+                        <div
+                                class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-md max-w-4xl mx-auto">
+                                <div class="flex items-center gap-md w-full md:w-auto">
+                                        <!-- Student Illustration Placeholder -->
+                                        <img alt="Student Illustration"
+                                                class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-surface-container-lowest shadow-lg object-cover"
+                                                src="app-img.png" />
+                                        <div>
+                                                <h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface"
+                                                        id="welcome-name">Hi, Student!</h1>
+                                                <p class="font-body-lg text-body-lg text-on-surface-variant mt-1">
+                                                        Welcome back to class!</p>
+                                        </div>
+                                </div>
+                                <!-- Points Card -->
+                                <div
+                                        class="bg-surface-container-lowest rounded-2xl p-4 md:p-6 card-shadow flex items-center justify-between gap-lg w-full md:w-auto border-2 border-surface-variant">
+                                        <div>
+                                                <p
+                                                        class="font-body-sm text-body-sm text-on-surface-variant font-bold uppercase tracking-wider">
+                                                        Your Points</p>
+                                                <p class="font-display-lg text-display-lg text-primary mt-1"
+                                                        id="user-points">0</p>
+                                        </div>
+                                        <div class="bg-secondary-container text-on-secondary-container p-3 rounded-xl">
+                                                <span class="material-symbols-outlined text-3xl"
+                                                        data-icon="emoji_events" data-weight="fill">emoji_events</span>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+                <!-- Quiz Grid Section -->
+                <div class="px-gutter md:px-0 py-lg mt-sm md:mt-lg max-w-4xl mx-auto">
+                        <h2 class="font-title-md text-title-md text-on-surface mb-md px-2 border-l-4 border-primary">
+                                Today's Missions</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-md md:gap-lg" id="quiz-grid">
+                                <!-- Quiz cards will be dynamically injected here -->
+                                <!-- Skeleton placeholders -->
+                                <div class="skeleton h-64 rounded-3xl"></div>
+                                <div class="skeleton h-64 rounded-3xl"></div>
+                        </div>
+                </div>
+        </main>
+        <!-- BottomNavBar (Mobile Only) -->
+        <nav
+                class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-6 pb-6 pt-3 md:hidden bg-surface/80 dark:bg-on-background/80 backdrop-blur-xl border-t border-outline-variant/30 shadow-[0_-8px_32px_rgba(0,0,0,0.05)]">
+                <a class="flex flex-col items-center justify-center relative group" href=".html">
+                        <div class="absolute -top-1 w-12 h-1 bg-primary rounded-full transition-all duration-300"></div>
+                        <span class="material-symbols-outlined text-2xl mb-1 text-primary transition-transform duration-300 group-active:scale-90"
+                                style="font-variation-settings: 'FILL' 1, 'wght' 300">home</span>
+                        <span class="font-label-bold text-[10px] uppercase tracking-widest text-primary">Home</span>
+                </a>
+                <a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant py-2 group"
+                        href="leaderboard.html">
+                        <span class="material-symbols-outlined text-2xl mb-1 transition-all duration-300 group-hover:text-primary group-active:scale-90"
+                                style="font-variation-settings: 'FILL' 0, 'wght' 300">leaderboard</span>
+                        <span class="font-label-bold text-[10px] uppercase tracking-widest">Leaderboard</span>
+                </a>
+                <a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant py-2 group"
+                        href="profile.html">
+                        <span class="material-symbols-outlined text-2xl mb-1 transition-all duration-300 group-hover:text-primary group-active:scale-90"
+                                style="font-variation-settings: 'FILL' 0, 'wght' 300">person</span>
+                        <span class="font-label-bold text-[10px] uppercase tracking-widest">Profile</span>
+                </a>
+        </nav>
+
         <script>
-  atOptions = {
-    'key' : '04a587728dd16c3217988170ec251dcf',
-    'format' : 'iframe',
-    'height' : 50,
-    'width' : 320,
-    'params' : {}
-  };
-</script>
-<script src="https://www.highperformanceformat.com/04a587728dd16c3217988170ec251dcf/invoke.js"></script>
-<div class="font-display-lg text-display-lg font-black text-primary dark:text-primary-fixed-dim">
-            RoboStarz
-        </div>
-<ul class="flex items-center gap-md">
-<li>
-<a class="flex flex-col items-center gap-1 text-primary dark:text-primary-fixed-dim border-b-4 border-primary dark:border-primary-fixed-dim pb-2 translate-y-0.5 transition-transform hover:bg-surface-container dark:hover:bg-inverse-surface rounded-lg px-2" href="index.html">
-<span class="font-label-bold text-label-bold uppercase tracking-wider">Home</span>
-</a>
-</li>
-<li>
-<a class="flex flex-col items-center gap-1 text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container dark:hover:bg-inverse-surface rounded-lg px-2 py-2" href="leaderboard.html">
-<span class="font-label-bold text-label-bold uppercase tracking-wider">Leaderboard</span>
-</a>
-</li>
-<li>
-<a class="flex flex-col items-center gap-1 text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container dark:hover:bg-inverse-surface rounded-lg px-2 py-2" href="profile.html">
-<span class="font-label-bold text-label-bold uppercase tracking-wider">Profile</span>
-</a>
-</li>
-</ul>
-<div class="flex items-center gap-sm">
-<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
-<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
-</button>
-<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors" onclick="window.location.href='admin.html'">
-<span class="material-symbols-outlined" data-icon="settings">settings</span>
-</button>
-<img alt="Student avatar" class="w-10 h-10 rounded-full border-2 border-primary object-cover ml-2" id="nav-avatar" src="app-pic.png"/>
-</div>
-</nav>
-<!-- Main Content Canvas -->
-<main class="max-w-container-max mx-auto md:px-lg">
-<!-- Hero Section -->
-<div class="relative pt-lg px-gutter pb-xl md:rounded-b-3xl md:mt-4 hero-gradient overflow-hidden">
-<div class="absolute bottom-0 left-0 w-full h-16 bg-background curved-bottom md:hidden z-0"></div>
-<div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-md max-w-4xl mx-auto">
-<div class="flex items-center gap-md w-full md:w-auto">
-<!-- Student Illustration Placeholder -->
-<img alt="Student Illustration" class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-surface-container-lowest shadow-lg object-cover" src="app-pic.png"/>
-<div>
-<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface" id="welcome-name">Hi, Student!</h1>
-<p class="font-body-lg text-body-lg text-on-surface-variant mt-1">Welcome back to class!</p>
-</div>
-</div>
-<!-- Points Card -->
-<div class="bg-surface-container-lowest rounded-2xl p-4 md:p-6 card-shadow flex items-center justify-between gap-lg w-full md:w-auto border-2 border-surface-variant">
-<div>
-<p class="font-body-sm text-body-sm text-on-surface-variant font-bold uppercase tracking-wider">Your Points</p>
-<p class="font-display-lg text-display-lg text-primary mt-1" id="user-points">0</p>
-</div>
-<div class="bg-secondary-container text-on-secondary-container p-3 rounded-xl">
-<span class="material-symbols-outlined text-3xl" data-icon="emoji_events" data-weight="fill">emoji_events</span>
-</div>
-</div>
-</div>
-</div>
-<!-- Quiz Grid Section -->
-<div class="px-gutter md:px-0 py-lg mt-sm md:mt-lg max-w-4xl mx-auto">
-<h2 class="font-title-md text-title-md text-on-surface mb-md px-2 border-l-4 border-primary">Today's Missions</h2>
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-md md:gap-lg" id="quiz-grid">
-<!-- Quiz cards will be dynamically injected here -->
-<!-- Skeleton placeholders -->
-<div class="skeleton h-64 rounded-3xl"></div>
-<div class="skeleton h-64 rounded-3xl"></div>
-</div>
-</div>
-</main>
-<!-- BottomNavBar (Mobile Only) -->
-<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-6 pb-6 pt-3 md:hidden bg-surface/80 dark:bg-on-background/80 backdrop-blur-xl border-t border-outline-variant/30 shadow-[0_-8px_32px_rgba(0,0,0,0.05)]">
-<a class="flex flex-col items-center justify-center relative group" href=".html">
-<div class="absolute -top-1 w-12 h-1 bg-primary rounded-full transition-all duration-300"></div>
-<span class="material-symbols-outlined text-2xl mb-1 text-primary transition-transform duration-300 group-active:scale-90" style="font-variation-settings: 'FILL' 1, 'wght' 300">home</span>
-<span class="font-label-bold text-[10px] uppercase tracking-widest text-primary">Home</span>
-</a>
-<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant py-2 group" href="leaderboard.html">
-<span class="material-symbols-outlined text-2xl mb-1 transition-all duration-300 group-hover:text-primary group-active:scale-90" style="font-variation-settings: 'FILL' 0, 'wght' 300">leaderboard</span>
-<span class="font-label-bold text-[10px] uppercase tracking-widest">Leaderboard</span>
-</a>
-<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant py-2 group" href="profile.html">
-<span class="material-symbols-outlined text-2xl mb-1 transition-all duration-300 group-hover:text-primary group-active:scale-90" style="font-variation-settings: 'FILL' 0, 'wght' 300">person</span>
-<span class="font-label-bold text-[10px] uppercase tracking-widest">Profile</span>
-</a>
-</nav>
+                // ─── Supabase Init ───
+                const SUPABASE_URL = "https://clbphhpprujjpdopfgtq.supabase.co";
+                const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsYnBoaHBwcnVqanBkb3BmZ3RxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3OTQwMzgsImV4cCI6MjA5NTM3MDAzOH0.udmaLNyKJodWU7oIHaEbsXdqxZ1Rqz-7CwLai2_6ahU";
+                let _supabase = null;
+                try {
+                        if (window.supabase) {
+                                _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                        }
+                } catch (err) {
+                        console.error("Failed to initialize Supabase:", err);
+                }
 
-<script>
-  // ─── Supabase Init ───
-  const SUPABASE_URL = "https://clbphhpprujjpdopfgtq.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsYnBoaHBwcnVqanBkb3BmZ3RxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3OTQwMzgsImV4cCI6MjA5NTM3MDAzOH0.udmaLNyKJodWU7oIHaEbsXdqxZ1Rqz-7CwLai2_6ahU";
-  let _supabase = null;
-  try {
-    if (window.supabase) {
-      _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    }
-  } catch (err) {
-    console.error("Failed to initialize Supabase:", err);
-  }
+                // ─── Color mapping for quiz categories ───
+                const CATEGORY_STYLES = {
+                        'EV3': { bg: '#1cb0f6', border: '#006590', icon: 'settings', iconColor: 'text-white' },
+                        'Spike': { bg: '#ff6b8b', border: '#d6335a', icon: 'code', iconColor: 'text-white' },
+                        'Whalesbot': { bg: '#fec700', border: '#d4a000', icon: 'smart_toy', iconColor: 'text-on-secondary-container' }
+                };
 
-  // ─── Color mapping for quiz categories ───
-  const CATEGORY_STYLES = {
-    'EV3': { bg: '#1cb0f6', border: '#006590', icon: 'settings', iconColor: 'text-white' },
-    'Spike': { bg: '#ff6b8b', border: '#d6335a', icon: 'code', iconColor: 'text-white' },
-    'Whalesbot': { bg: '#fec700', border: '#d4a000', icon: 'smart_toy', iconColor: 'text-on-secondary-container' }
-  };
+                // ─── Auth Guard + Data Load ───
+                (async function init() {
+                        if (!_supabase) return;
 
-  // ─── Auth Guard + Data Load ───
-  (async function init() {
-    if (!_supabase) return;
+                        const { data: { session } } = await _supabase.auth.getSession();
+                        if (!session) {
+                                window.location.href = 'login.html';
+                                return;
+                        }
 
-    const { data: { session } } = await _supabase.auth.getSession();
-    if (!session) {
-      window.location.href = 'login.html';
-      return;
-    }
+                        const userId = session.user.id;
 
-    const userId = session.user.id;
+                        // Fetch user profile
+                        const { data: profile } = await _supabase
+                                .from('profiles')
+                                .select('username, total_points')
+                                .eq('id', userId)
+                                .single();
 
-    // Fetch user profile
-    const { data: profile } = await _supabase
-      .from('profiles')
-      .select('username, total_points')
-      .eq('id', userId)
-      .single();
+                        if (profile) {
+                                document.getElementById('welcome-name').textContent = `Hi, ${profile.username}!`;
+                                document.getElementById('user-points').textContent = profile.total_points.toLocaleString();
+                        }
 
-    if (profile) {
-      document.getElementById('welcome-name').textContent = `Hi, ${profile.username}!`;
-      document.getElementById('user-points').textContent = profile.total_points.toLocaleString();
-    }
+                        // Fetch quizzes
+                        const { data: quizzes, error } = await _supabase
+                                .from('quizzes')
+                                .select('id, category, title, description')
+                                .order('created_at', { ascending: false });
 
-    // Fetch quizzes
-    const { data: quizzes, error } = await _supabase
-      .from('quizzes')
-      .select('id, category, title, description')
-      .order('created_at', { ascending: false });
+                        const grid = document.getElementById('quiz-grid');
+                        grid.innerHTML = ''; // Clear skeleton
 
-    const grid = document.getElementById('quiz-grid');
-    grid.innerHTML = ''; // Clear skeleton
-
-    if (!quizzes || quizzes.length === 0) {
-      grid.innerHTML = `
+                        if (!quizzes || quizzes.length === 0) {
+                                grid.innerHTML = `
         <div class="col-span-full text-center py-xl">
           <span class="material-symbols-outlined text-6xl text-outline-variant mb-4 block">quiz</span>
           <p class="font-title-md text-title-md text-on-surface-variant">No quizzes available yet.</p>
           <p class="font-body-sm text-body-sm text-outline mt-2">Check back soon or ask your teacher!</p>
         </div>`;
-      return;
-    }
+                                return;
+                        }
 
-    // Fetch user's completed submissions to mark quizzes
-    const { data: submissions } = await _supabase
-      .from('submissions')
-      .select('quiz_id')
-      .eq('user_id', userId);
+                        // Fetch user's completed submissions to mark quizzes
+                        const { data: submissions } = await _supabase
+                                .from('submissions')
+                                .select('quiz_id')
+                                .eq('user_id', userId);
 
-    const answeredQuizIds = new Set((submissions || []).map(s => s.quiz_id));
+                        const answeredQuizIds = new Set((submissions || []).map(s => s.quiz_id));
 
-    quizzes.forEach((quiz) => {
-      const style = CATEGORY_STYLES[quiz.category] || CATEGORY_STYLES['EV3'];
-      const hasAnswered = answeredQuizIds.has(quiz.id);
+                        quizzes.forEach((quiz) => {
+                                const style = CATEGORY_STYLES[quiz.category] || CATEGORY_STYLES['EV3'];
+                                const hasAnswered = answeredQuizIds.has(quiz.id);
 
-      const card = document.createElement('div');
-      card.className = `bg-[${style.bg}] rounded-3xl p-1 pb-4 flex flex-col h-full relative overflow-hidden tactile-btn border-[${style.border}]`;
-      card.style.backgroundColor = style.bg;
-      card.style.borderColor = style.border;
+                                const card = document.createElement('div');
+                                card.className = `bg-[${style.bg}] rounded-3xl p-1 pb-4 flex flex-col h-full relative overflow-hidden tactile-btn border-[${style.border}]`;
+                                card.style.backgroundColor = style.bg;
+                                card.style.borderColor = style.border;
 
-      card.innerHTML = `
+                                card.innerHTML = `
         ${hasAnswered ? `
         <div class="absolute top-3 right-3 bg-tertiary-container text-on-tertiary-container rounded-full p-1 shadow-sm z-10">
           <span class="material-symbols-outlined text-sm font-bold" data-icon="check">check</span>
@@ -408,11 +453,12 @@
           </button>
         </div>`;
 
-      grid.appendChild(card);
-    });
-  })();
-</script>
-<script src="https://pl29657583.effectivecpmnetwork.com/c8/c4/73/c8c473adc14eba9ea8465328ff2c5e09.js"></script>
+                                grid.appendChild(card);
+                        });
+                })();
+        </script>
+        <script src="https://pl29657583.effectivecpmnetwork.com/c8/c4/73/c8c473adc14eba9ea8465328ff2c5e09.js"></script>
 
 </body>
+
 </html>
