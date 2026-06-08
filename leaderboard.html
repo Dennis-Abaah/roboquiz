@@ -186,6 +186,15 @@
   Live updates active
 </p>
 </div>
+<div class="mt-4 max-w-xs mx-auto">
+  <div class="relative">
+    <select id="squad-filter" class="w-full bg-surface-container-lowest border-2 border-outline-variant text-on-surface font-title-md text-title-md rounded-xl px-4 py-3 focus:border-primary focus:outline-none appearance-none cursor-pointer text-center">
+      <option value="lego">LEGO SQUAD</option>
+      <option value="microbit">Microbit SQUAD</option>
+    </select>
+    <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+  </div>
+</div>
 <!-- Podium Section (Top 3) -->
 <section class="flex flex-col md:flex-row justify-center items-end gap-md md:gap-lg mb-xl mt-xl px-4 md:px-0" id="podium-section">
 <!-- Will be dynamically populated -->
@@ -246,22 +255,37 @@
     { bg: 'bg-secondary-container', text: 'text-on-secondary-container' },
   ];
 
+  let allProfiles = [];
+  const microbitSchools = ["Sunrise", "God's Grace", "Fusion"];
+
   function getInitials(name) {
     return name.split(' ').map(w => w[0]).join('').toUpperCase().substring(0, 2);
   }
 
   // ─── Render Leaderboard ───
   function renderLeaderboard(profiles) {
-    if (!profiles || profiles.length === 0) {
+    const filter = document.getElementById('squad-filter') ? document.getElementById('squad-filter').value : 'all';
+    let filteredProfiles = [...profiles];
+    if (filter === 'lego') {
+      filteredProfiles = filteredProfiles.filter(p => !microbitSchools.includes(p.school));
+    } else if (filter === 'microbit') {
+      filteredProfiles = filteredProfiles.filter(p => microbitSchools.includes(p.school));
+    }
+
+    if (!filteredProfiles || filteredProfiles.length === 0) {
       podiumSection.innerHTML = '<p class="text-center text-on-surface-variant font-body-lg col-span-full">No students yet!</p>';
+      
+      const headerRow = listSection.querySelector('.hidden.md\\\\:flex');
+      listSection.innerHTML = '';
+      if (headerRow) listSection.appendChild(headerRow);
       return;
     }
 
     // Sort by total_points descending
-    profiles.sort((a, b) => b.total_points - a.total_points);
+    filteredProfiles.sort((a, b) => b.total_points - a.total_points);
 
-    const top3 = profiles.slice(0, 3);
-    const rest = profiles.slice(3);
+    const top3 = filteredProfiles.slice(0, 3);
+    const rest = filteredProfiles.slice(3);
 
     // ─── Podium ───
     const podiumConfigs = [
@@ -355,7 +379,15 @@
       .select('username, school, total_points')
       .order('total_points', { ascending: false });
 
-    renderLeaderboard(profiles || []);
+    allProfiles = profiles || [];
+    renderLeaderboard(allProfiles);
+
+    const squadFilterEl = document.getElementById('squad-filter');
+    if (squadFilterEl) {
+      squadFilterEl.addEventListener('change', () => {
+        renderLeaderboard(allProfiles);
+      });
+    }
 
     // ─── Real-Time Subscription ───
     _supabase
@@ -371,7 +403,8 @@
           .select('username, school, total_points')
           .order('total_points', { ascending: false });
 
-        renderLeaderboard(updated || []);
+        allProfiles = updated || [];
+        renderLeaderboard(allProfiles);
 
         // Subtle pulse animation
         podiumSection.classList.add('pulse');

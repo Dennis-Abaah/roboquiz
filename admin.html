@@ -167,9 +167,14 @@
                 <div class="flex flex-col gap-1">
                     <label class="font-label-bold text-on-surface-variant text-sm">Category</label>
                     <select id="category" class="input-squish rounded-lg px-3 py-2 bg-surface-bright">
-                        <option value="EV3">EV3</option>
-                        <option value="Spike">Spike</option>
-                        <option value="Whalesbot">Whalesbot</option>
+                        <optgroup label="🤖 LEGO SQUAD">
+                            <option value="EV3">EV3</option>
+                            <option value="Spike">Spike</option>
+                            <option value="Whalesbot">Whalesbot</option>
+                        </optgroup>
+                        <optgroup label="💡 Microbit SQUAD">
+                            <option value="Microbit">Microbit</option>
+                        </optgroup>
                     </select>
                 </div>
                 
@@ -253,7 +258,7 @@
         }
 
         // Auth Guard — Admin Only
-        const ADMIN_EMAIL = 'abaahdennis54@gmail.com';
+        const ADMIN_EMAILS = ['abaahdennis54@gmail.com', 'joshua@gmail.com'];
         (async function checkAuth() {
             if (!_supabase) return;
             const { data: { session } } = await _supabase.auth.getSession();
@@ -261,8 +266,8 @@
                 window.location.href = 'login.html';
                 return;
             }
-            if (session.user.email !== ADMIN_EMAIL) {
-                alert('Access denied. Only the administrator can access this page.');
+            if (!ADMIN_EMAILS.includes(session.user.email)) {
+                alert('Access denied. Only administrators can access this page.');
                 window.location.href = 'index.html';
                 return;
             }

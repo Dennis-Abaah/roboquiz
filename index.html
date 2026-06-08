@@ -374,7 +374,8 @@
                 const CATEGORY_STYLES = {
                         'EV3': { bg: '#1cb0f6', border: '#006590', icon: 'settings', iconColor: 'text-white' },
                         'Spike': { bg: '#ff6b8b', border: '#d6335a', icon: 'code', iconColor: 'text-white' },
-                        'Whalesbot': { bg: '#fec700', border: '#d4a000', icon: 'smart_toy', iconColor: 'text-on-secondary-container' }
+                        'Whalesbot': { bg: '#fec700', border: '#d4a000', icon: 'smart_toy', iconColor: 'text-on-secondary-container' },
+                        'Microbit': { bg: '#87fe45', border: '#2b6c00', icon: 'memory', iconColor: 'text-on-tertiary-container' }
                 };
 
                 // ─── Auth Guard + Data Load ───
@@ -392,7 +393,7 @@
                         // Fetch user profile
                         const { data: profile } = await _supabase
                                 .from('profiles')
-                                .select('username, total_points')
+                                .select('username, total_points, school')
                                 .eq('id', userId)
                                 .single();
 
@@ -401,11 +402,21 @@
                                 document.getElementById('user-points').textContent = profile.total_points.toLocaleString();
                         }
 
+                        let allowedCategories = [];
+                        const microbitSchools = ["Sunrise", "God's Grace", "Fusion"];
+                        if (profile && microbitSchools.includes(profile.school)) {
+                                allowedCategories = ['Microbit'];
+                        } else {
+                                allowedCategories = ['EV3', 'Spike', 'Whalesbot'];
+                        }
+
                         // Fetch quizzes
-                        const { data: quizzes, error } = await _supabase
+                        const { data: allQuizzes, error } = await _supabase
                                 .from('quizzes')
                                 .select('id, category, title, description')
                                 .order('created_at', { ascending: false });
+
+                        const quizzes = (allQuizzes || []).filter(q => allowedCategories.includes(q.category));
 
                         const grid = document.getElementById('quiz-grid');
                         grid.innerHTML = ''; // Clear skeleton
